@@ -11,7 +11,7 @@
 %\usepackage{moreverb}
 \usepackage{multicol}
 
-\usepackage[english,catalan]{babel}
+\usepackage[english,catalan,spanish]{babel}
 %\usepackage{epsfig}
 %\usepackage{rotating}
 \usepackage[all]{xy}
@@ -229,83 +229,63 @@
 
 \end{titlepage}
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \selectlanguage{english}
+\textbf{\large Abstract} \\
+
+The Need for...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\selectlanguage{spanish}
+\textbf{\large Resumen} \\
+
+La necesidad de...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\selectlanguage{catalan}
+\textbf{\large Resum} \\
+
+La necessitat de...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\selectlanguage{english}
+\textbf{\large Acknowledgements} \\
+
+This work would not have been possible without the help of ...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\selectlanguage{english}
 \pagenumbering{roman} \setcounter{page}{0}
+\let\cleardoublepage\clearpage
 \tableofcontents
 \newpage \thispagestyle{empty}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-%%%%%%%%%%%%%%%%%%%%% aix{\`o} pels headings %%%%%%%%%%%%%%%%%%%%%%%%
 \pagestyle{fancy}
-\addcontentsline{toc}{chapter}{Introduction}
 \markboth{Introduction}{Introduction}
 \newpage \thispagestyle{empty}
-
-
-The main goal of this work is to prove the existence of.......
-
-
-
-\vspace{3mm}
-
-{\bf Notation:} We will work over an algebraically closed field $K$ of characteristic zero.
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \mainmatter
-\chapter[titol abreujat 1]{t\'{\i}tol del cap\'{\i}tol 1}
-\section{Sub apartat del cap\'{\i}tol}
+\chapter{Introduction}
+\section{Definition of the problem}
 
-\begin{definition}  \label{ulrich}  \rm Given a projective scheme $X\subseteq \PP^n$ and a coherent sheaf $\cE$ on $X$, we say that
-$\cE$ is an \emph{Ulrich sheaf} if  $\cE$ is an ACM sheaf and $\h^0(\cE_{init})=\deg(X)\mbox{rank}(\cE)$, i.e. the minimal
-number of generators of Ulrich sheaves is as large as possible.
-\end{definition}
+Lorem ipsum 
 
+\newpage
 
-Notice that in Definition \ref{ulrich} we do not require......
+\section{Objectives}
 
-\vspace{3mm}
+\section{Project timeline}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{theorem}{\bf (Borel-Bott-Weil)}
-\label{bottLine}
-Assume that all entries of $\alpha+\rho$ are distinct.  Let $\sigma \in S_{n+1}$ be the unique permutation such
-    that $\sigma(\alpha+\rho)$ is strictly decreasing. Then
-\[ \Hl^m(F_c, L_{\alpha})= \left \{ \begin{array}{ll}
-\Sigma^{\sigma(\alpha+\rho)-\rho} V^* & \mbox{if} \quad m=l(\sigma) \\
-0 &\mbox{otherwise.}
- \end{array} \right. \]
-If at least two entries of $\alpha + \rho $ coincide then $$
-\Hl^{i}(F_c, L_{\alpha})= 0 \quad \mbox{for all integer } i.$$
-\end{theorem}
-\begin{proof}  See \cite{D}; Theorem 2.
-\end{proof}
+\chapter{Background}
 
-
-
-
-\begin{theorem}{\bf (Borel-Bott-Weil)}
-\label{bott2} Let $ \beta=(\beta_1, \cdots, \beta_{p+1}) \in \ZZ^{p+1}$, $\alpha=(\alpha_1, \cdots, \alpha_{q-p}) \in \ZZ^{q-p}$ and $\gamma=(\gamma_1, \cdots, \gamma_{n-q}) \in \ZZ^{n-q}$
- be non-increasing integer sequences  and let $\mu=(\beta,\alpha, \gamma) \in \ZZ^{n+1}$ be their concatenation.
-
-\begin{itemize}
-\item[(a)] Assume that all entries of $\mu + \rho $ are distinct and let $\sigma \in S_{n+1}$ be the unique permutation such
-    that $\sigma(\mu+\rho)$ is strictly decreasing. Then
-\[ \Hl^m(F(p,q,n), \Sigma^{\beta} \cP \otimes \Sigma^{\alpha} \cS_2 \otimes \Sigma^{\gamma}\cS_1)= \left \{ \begin{array}{ll}
-\Sigma^{\sigma(\mu+\rho)-\rho} V^* & \mbox{if} \quad m=l(\sigma) \\
-0 &\mbox{otherwise.}
- \end{array} \right. \]
-\item[(b)] If at least two entries of $\mu + \rho $ coincide then $$
-\Hl^{i}(F(p,q,n), \Sigma^{\beta} \cP \otimes \Sigma^{\alpha} \cS_2 \otimes \Sigma^{\gamma}\cS_1)= 0 \quad \mbox{for all interger } i.$$
-\end{itemize}
-\end{theorem}
-\begin{proof} It follows from Theorem \ref{bottLine}
-\end{proof}
-
-\chapter{t\'{\i}tol del cap\'{\i}tol 2}
+\section{Breast Cancer}
 
 
 
