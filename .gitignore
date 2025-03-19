@@ -1,0 +1,87 @@
+idea
+# MLflow tracking directories
+mlruns/
+mlflow_tracking/
+mlartifacts/
+
+# Model artifacts and checkpoints
+*.pkl
+*.pth
+*.pt
+*.model
+*.h5
+*.keras
+
+# Virtual environments
+venv/
+env/
+.venv/
+.env/
+
+# Data directories (especially large datasets)
+datasets/
+*.csv
+*.json
+*.parquet
+*.zip
+*.tar.gz
+
+# Experiment outputs and logs
+logs/
+output/
+results/
+
+# Python cache and compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment and configuration files
+.env
+*.env
+config.yaml
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints/
+
+# Temporary files
+*.tmp
+*.bak
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Images, dicom files, and other binary data
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.bmp
+*.tiff
+*.dicom
+*.nii
+*.nii.gz
+*.mha
+*.mhd
+*.dcm
+*.raw
+*.bin
+*.exe
+*.dll
+*.so
+*.dylib
+*.lib
+*.a
+*.obj
+*.o
+*.out
+*.log
+*.txt
