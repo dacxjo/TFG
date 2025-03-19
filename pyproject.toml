@@ -1,5 +1,5 @@
 [project]
-name = "tfg"
+name = "Project Aletheia"
 version = "0.1.0"
 description = "Undergraduate thesis on breast cancer molecular subtype classification using MultiAxis-Vision Transformer"
 authors = [
