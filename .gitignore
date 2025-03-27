@@ -30,6 +30,7 @@ datasets/
 logs/
 output/
 results/
+wandb/
 
 # Python cache and compiled files
 __pycache__/
@@ -59,28 +60,15 @@ config.yaml
 .DS_Store
 Thumbs.db
 
-/data/*.jpg
-/data/*.jpeg
-/data/*.png
-/data/*.gif
-/data/*.bmp
-/data/*.tiff
-/data/*.dicom
-/data/*.nii
-/data/*.nii.gz
-/data/*.mha
-/data/*.mhd
-/data/*.dcm
-/data/*.raw
-/data/*.bin
-/data/*.exe
-/data/*.dll
-/data/*.so
-/data/*.dylib
-/data/*.lib
-/data/*.a
-/data/*.obj
-/data/*.o
-/data/*.out
-/data/*.log
-/data/*.txt
+# Data files
+/data/**/*.csv
+/data/**/*.json
+/data/**/*.parquet
+/data/**/*.zip
+/data/**/*.tar.gz
+/data/**/*.jpg
+/data/**/*.jpeg
+/data/**/*.png
+/data/**/*.dcm
+/data/**/*.xlsx
+/data/**/LICENSE

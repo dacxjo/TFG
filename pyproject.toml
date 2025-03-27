@@ -1,5 +1,5 @@
 [project]
-name = "Project Aletheia"
+name = "project-aletheia"
 version = "0.1.0"
 description = "Undergraduate thesis on breast cancer molecular subtype classification using MultiAxis-Vision Transformer"
 authors = [
@@ -17,7 +17,12 @@ dependencies = [
     "scikit-learn (>=1.6.1,<2.0.0)",
     "wandb (>=0.19.8,<0.20.0)",
     "numpy (>=2.2.4,<3.0.0)",
-    "ipykernel (>=6.29.5,<7.0.0)"
+    "ipykernel (>=6.29.5,<7.0.0)",
+    "pydicom (>=3.0.1,<4.0.0)",
+    "openpyxl (>=3.1.5,<4.0.0)",
+    "nbformat (>=5.10.4,<6.0.0)",
+    "opencv-python (>=4.11.0.86,<5.0.0.0)",
+    "tqdm (>=4.67.1,<5.0.0)"
 ]
 
 
