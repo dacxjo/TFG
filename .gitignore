@@ -72,3 +72,6 @@ Thumbs.db
 /data/**/*.dcm
 /data/**/*.xlsx
 /data/**/LICENSE
+
+lightning_logs/
+project-alethia/*
