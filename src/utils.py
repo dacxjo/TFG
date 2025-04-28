@@ -1,5 +1,9 @@
 import os
 import shutil
+import random
+import torch
+
+import numpy as np
 
 from pandas import DataFrame
 from sklearn.model_selection import train_test_split
@@ -89,4 +93,22 @@ def make_grouped_holdout_split(dataframe, patient_col, subtype_col, test_size=0.
     trainval_df = dataframe[dataframe[patient_col].isin(trainval_patients[patient_col])]
     test_df = dataframe[dataframe[patient_col].isin(test_patients[patient_col])]
     return trainval_df, test_df
+
+
+def get_experiment_name(prefix="ALE", model="resnet101"):
+    number = random.randint(1, 999)
+    return f"{prefix}{number}-{model}"
+
+def get_sample_weights(labels):
+    class_counts = np.bincount(labels)
+    class_weights = 1. / class_counts
+    sample_weights = class_weights[labels]
+    return sample_weights
+
+def get_class_weights(labels):
+    class_counts = np.bincount(labels)
+    total_samples = np.sum(class_counts)
+    class_weights = total_samples / (len(class_counts) * class_counts)
+    return torch.tensor(class_weights, dtype=torch.float)
+
 

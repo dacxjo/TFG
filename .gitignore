@@ -74,4 +74,5 @@ Thumbs.db
 /data/**/LICENSE
 
 lightning_logs/
-project-alethia/*
+/project-alethia/**/*
+wandb/*
