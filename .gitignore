@@ -47,6 +47,7 @@ __pycache__/
 # Environment and configuration files
 .env
 *.env
+.env
 config.yaml
 
 # Jupyter notebook checkpoints
@@ -72,3 +73,7 @@ Thumbs.db
 /data/**/*.dcm
 /data/**/*.xlsx
 /data/**/LICENSE
+
+lightning_logs/
+/project-alethia/**/*
+wandb/*
