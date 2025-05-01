@@ -13,8 +13,7 @@ from torch.utils.data import WeightedRandomSampler
 from src.datasets import MammoDataset
 from src.models import MolecularSubtypeClassifier, resnet101_backbone, maxvit_backbone, get_transforms
 from src.utils import get_experiment_name, get_class_weights, get_sample_weights
-
-os.environ['WANDB_API_KEY'] = "4c84e3e2587e5cf310454cbabfdc508493b21a99"
+from dotenv import load_dotenv
 
 def get_k_folds(dataset, n_splits=5, batch_size=64, augment=False, seed=42, oversample=False):
     skf = StratifiedKFold(n_splits=n_splits, shuffle=True, random_state=seed)
@@ -235,6 +234,7 @@ def run_complete_training(model, model_name, dataset, oversample=False, experime
 
 
 def main():
+    load_dotenv()
     print("Starting training...")
     parser = argparse.ArgumentParser(description="Train a model for breast cancer subtype classification.")
     parser.add_argument("--model", type=str, default="resnet101", choices=["resnet101", "maxvit"],
