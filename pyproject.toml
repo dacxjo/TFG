@@ -39,7 +39,10 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry]
 package-mode = false
 packages = [{ include = "src", from = "." }]
-scripts = { "train" = "src.train:main" }
+
+[tool.poetry.scripts]
+train = "train:main"
+test = "test:main"
 
 
 

@@ -1,14 +1,13 @@
 import os
-import shutil
 import random
-import torch
+import shutil
 
 import numpy as np
-
+import torch
 from pandas import DataFrame
 from sklearn.model_selection import train_test_split
 
-from src.config import SPLIT_TRAIN_DIR, SPLIT_VAL_DIR, SPLIT_TEST_DIR
+from config import SPLIT_TRAIN_DIR, SPLIT_VAL_DIR, SPLIT_TEST_DIR
 
 
 def make_grouped_splits(dataframe: DataFrame, patient_col: str, subtype_col: str):
@@ -69,19 +68,20 @@ def persist_splits(train_df, val_df, test_df, patient_col="patientId", subtype_c
         shutil.rmtree(train_image_path)
 
     if os.path.exists(val_image_path):
-         shutil.rmtree(val_image_path)
+        shutil.rmtree(val_image_path)
 
     if os.path.exists(test_image_path):
         shutil.rmtree(test_image_path)
 
     os.makedirs(train_image_path, exist_ok=True)
-    #os.makedirs(val_image_path, exist_ok=True)
     os.makedirs(test_image_path, exist_ok=True)
 
     copy_images(train_df, train_image_path, path_col, patient_col, subtype_col)
-    #copy_images(val_df, val_image_path, path_col, patient_col, subtype_col)
     copy_images(test_df, test_image_path, path_col, patient_col, subtype_col)
 
+    if val_df is not None:
+        os.makedirs(val_image_path, exist_ok=True)
+        copy_images(val_df, val_image_path, path_col, patient_col, subtype_col)
 
 
 def make_grouped_holdout_split(dataframe, patient_col, subtype_col, test_size=0.2):
@@ -99,11 +99,13 @@ def get_experiment_name(prefix="ALE", model="resnet101"):
     number = random.randint(1, 999)
     return f"{prefix}{number}-{model}"
 
+
 def get_sample_weights(labels):
     class_counts = np.bincount(labels)
     class_weights = 1. / class_counts
     sample_weights = class_weights[labels]
     return sample_weights
+
 
 def get_class_weights(labels):
     class_counts = np.bincount(labels)
@@ -111,4 +113,14 @@ def get_class_weights(labels):
     class_weights = total_samples / (len(class_counts) * class_counts)
     return torch.tensor(class_weights, dtype=torch.float)
 
-
+def get_device():
+    if torch.cuda.is_available():
+        device = torch.device("cuda")
+        print(f"Using GPU: {torch.cuda.get_device_name(0)}")
+    elif torch.accelerator.is_available():
+        device = torch.accelerator.current_accelerator()
+        print("Using Apple Silicon GPU")
+    else:
+        device = torch.device("cpu")
+        print("Using CPU")
+    return device
