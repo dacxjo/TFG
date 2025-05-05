@@ -14,3 +14,7 @@ SPLIT_TRAIN_DIR = SPLITS_DATA_DIR / "train"
 SPLIT_TEST_DIR = SPLITS_DATA_DIR / "test"
 SPLIT_VAL_DIR = SPLITS_DATA_DIR / "val"
 
+MODELS_DIR = BASE_DIR / "models"
+CHECKPOINTS_DIR = MODELS_DIR / "checkpoints"
+
+ALLOWED_BACKBONES = ["resnet101", "maxvit", "vit", "swin"]

@@ -3,16 +3,9 @@ import torch
 
 import wandb
 from pytorch_lightning.loggers import WandbLogger
-from torchmetrics import (
-    Accuracy,
-    F1Score,
-    Precision,
-    Recall,
-    ConfusionMatrix,
-    AUROC,
-    CohenKappa,
-    MetricCollection,
-)
+from torchmetrics import MetricCollection
+from torchmetrics.classification import MulticlassAccuracy, MulticlassF1Score, MulticlassPrecision, MulticlassRecall, \
+    MulticlassAUROC, MulticlassCohenKappa, MulticlassConfusionMatrix
 
 
 # Training Module
@@ -25,7 +18,8 @@ class MolecularSubtypeClassifier(L.LightningModule):
             learning_rate=0.001,
             classification_mode="multiclass",
             class_weights=None,
-            reduce_lr_on_plateau=True
+            class_names=None,
+            input_size=(224, 224),
     ):
         """
         Lightning Module for Molecular Subtype Classification.
@@ -34,6 +28,7 @@ class MolecularSubtypeClassifier(L.LightningModule):
         :param learning_rate: Learning rate for the optimizer.
         :param classification_mode: Classification mode.
         :param class_weights: Class weights for the loss function.
+        :param class_names: List of class names.
         """
         super().__init__()
 
@@ -43,41 +38,55 @@ class MolecularSubtypeClassifier(L.LightningModule):
         self.learning_rate = learning_rate
         self.classification_mode = classification_mode
         self.class_weights = class_weights
-        self.reduce_lr_on_plateau = reduce_lr_on_plateau
+        self.class_names = class_names if class_names is not None else [f"Class_{i}" for i in range(num_classes)]
+        self.input_size = input_size
 
         self.val_preds = []
         self.val_targets = []
+        self.val_probs = []
         self.test_preds = []
         self.test_targets = []
+        self.test_probs = []
 
         # Loss function
         if self.class_weights is not None:
-            self.criterion = torch.nn.CrossEntropyLoss(weight=self.class_weights)
+            self.criterion = torch.nn.CrossEntropyLoss(weight=self.class_weights, label_smoothing=0.05)
         else:
+            # Focal Loss may be used here
             self.criterion = torch.nn.CrossEntropyLoss()
 
-        # Metrics
+        self._init_metrics()
+
+        self.example_input_array = torch.randn(1, 3, *self.input_size)
+
+        self.save_hyperparameters(ignore=["backbone"])
+
+    def _init_metrics(self):
         multiclass_metrics = MetricCollection(
             {
-                "accuracy": Accuracy(task="multiclass", num_classes=num_classes),
-                "f1": F1Score(task="multiclass", num_classes=num_classes, average="macro"),
-                "precision": Precision(task="multiclass", num_classes=num_classes, average="macro"),
-                "recall": Recall(task="multiclass", num_classes=num_classes, average="macro"),
-                "auroc": AUROC(num_classes=num_classes, task="multiclass"),
-                "cohen_kappa": CohenKappa(num_classes=num_classes, task="multiclass"),
+                "accuracy": MulticlassAccuracy(num_classes=self.num_classes),
+
+                "f1_macro": MulticlassF1Score(num_classes=self.num_classes, average="macro"),
+                "precision_macro": MulticlassPrecision(num_classes=self.num_classes, average="macro"),
+                "recall_macro": MulticlassRecall(num_classes=self.num_classes, average="macro"),
+
+                "f1_weighted": MulticlassF1Score(num_classes=self.num_classes, average="weighted"),
+                "precision_weighted": MulticlassPrecision(num_classes=self.num_classes, average="weighted"),
+                "recall_weighted": MulticlassRecall(num_classes=self.num_classes, average="weighted"),
+
+                "auroc": MulticlassAUROC(num_classes=self.num_classes),
+                "cohen_kappa": MulticlassCohenKappa(num_classes=self.num_classes)
             }
         )
 
-        if classification_mode == "multiclass":
+        if self.classification_mode == "multiclass":
             self.train_metrics = multiclass_metrics.clone(prefix="train_")
             self.val_metrics = multiclass_metrics.clone(prefix="val_")
             self.test_metrics = multiclass_metrics.clone(prefix="test_")
 
-            self.train_cm = ConfusionMatrix(num_classes=num_classes, task="multiclass")
-            self.val_cm = ConfusionMatrix(num_classes=num_classes, task="multiclass")
-            self.test_cm = ConfusionMatrix(num_classes=num_classes, task="multiclass")
-
-        self.save_hyperparameters(ignore=["backbone"])
+            self.train_cm = MulticlassConfusionMatrix(num_classes=self.num_classes)
+            self.val_cm = MulticlassConfusionMatrix(num_classes=self.num_classes)
+            self.test_cm = MulticlassConfusionMatrix(num_classes=self.num_classes)
 
     def forward(self, x):
         """
@@ -105,9 +114,11 @@ class MolecularSubtypeClassifier(L.LightningModule):
             if stage == "val":
                 self.val_preds.append(preds.cpu())
                 self.val_targets.append(y.cpu())
+                self.val_probs.append(probs.cpu())
             elif stage == 'test':
                 self.test_preds.append(preds.cpu())
                 self.test_targets.append(y.cpu())
+                self.test_probs.append(probs.cpu())
 
             metrics = getattr(self, f"{stage}_metrics")
             for name, metric in metrics.items():
@@ -199,17 +210,35 @@ class MolecularSubtypeClassifier(L.LightningModule):
         if self.logger is not None and isinstance(self.logger, WandbLogger):
             preds = torch.cat(self.val_preds).tolist()
             targets = torch.cat(self.val_targets).tolist()
+            probs = torch.cat(self.val_probs).tolist()
 
             self.logger.experiment.log({
                 "val_confusion_matrix": wandb.plot.confusion_matrix(
                     y_true=targets,
                     preds=preds,
-                    class_names=[f"Class_{i}" for i in range(self.num_classes)]
+                    class_names=self.class_names
+                )
+            })
+
+            self.logger.experiment.log({
+                "val_roc_curve": wandb.plot.roc_curve(
+                    y_true=targets,
+                    y_probas=probs,
+                    labels=self.class_names
+                )
+            })
+
+            self.logger.experiment.log({
+                "val_pr_curve": wandb.plot.pr_curve(
+                    y_true=targets,
+                    y_probas=probs,
+                    labels=self.class_names
                 )
             })
 
             self.val_preds.clear()
             self.val_targets.clear()
+            self.val_probs.clear()
 
     def on_test_epoch_end(self):
         """
@@ -244,21 +273,11 @@ class MolecularSubtypeClassifier(L.LightningModule):
         Configure the optimizers and learning rate schedulers.
         :return: Optimizer and learning rate scheduler.
         """
-        params = filter(lambda p: p.requires_grad, self.parameters())
-        optimizer = torch.optim.AdamW(params, lr=self.learning_rate, weight_decay=0.01)
-        if self.reduce_lr_on_plateau:
-            scheduler = {
-                "scheduler": torch.optim.lr_scheduler.ReduceLROnPlateau(
-                    optimizer, mode="min", factor=0.1, patience=5, min_lr=1e-6
-                ),
-                "monitor": "val_loss",
-                "interval": "epoch",
-                "frequency": 1,
-            }
-        else:
-            scheduler = {
-                "scheduler": torch.optim.lr_scheduler.CosineAnnealingLR(
-                    optimizer, T_max=10, eta_min=1e-6
-                ),
-            }
+        optimizer = torch.optim.AdamW(self.parameters(), lr=self.learning_rate)
+        scheduler = {
+            'scheduler': torch.optim.lr_scheduler.CosineAnnealingWarmRestarts(optimizer, T_0=10, T_mult=2,
+                                                                              eta_min=1e-6),
+            'interval': 'epoch',
+            'frequency': 1
+        }
         return [optimizer], [scheduler]

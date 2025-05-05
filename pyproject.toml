@@ -28,7 +28,8 @@ dependencies = [
     "torchmetrics (>=1.7.1,<2.0.0)",
     "albumentations (>=2.0.5,<3.0.0)",
     "ipywidgets (>=8.1.6,<9.0.0)",
-    "dotenv (>=0.9.9,<0.10.0)"
+    "dotenv (>=0.9.9,<0.10.0)",
+    "onnx (>=1.17.0,<2.0.0)"
 ]
 
 
@@ -43,6 +44,7 @@ packages = [{ include = "src", from = "." }]
 [tool.poetry.scripts]
 train = "train:main"
 test = "test:main"
+predict = "predict:main"
 
 
 

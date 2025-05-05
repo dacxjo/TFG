@@ -1,11 +1,14 @@
 import os
 import random
 import shutil
+from collections import Counter
 
 import numpy as np
 import torch
 from pandas import DataFrame
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, StratifiedShuffleSplit
+from sklearn.utils.class_weight import compute_class_weight
+from src.modeling.backbones import resnet101_backbone, maxvit_backbone, vit_backbone, swin_backbone
 
 from config import SPLIT_TRAIN_DIR, SPLIT_VAL_DIR, SPLIT_TEST_DIR
 
@@ -101,17 +104,20 @@ def get_experiment_name(prefix="ALE", model="resnet101"):
 
 
 def get_sample_weights(labels):
-    class_counts = np.bincount(labels)
-    class_weights = 1. / class_counts
-    sample_weights = class_weights[labels]
-    return sample_weights
+    class_counts = Counter(labels)
+    total_count = sum(class_counts.values())
+
+    class_weights = {cls: total_count / (len(class_counts) * count) for cls, count in class_counts.items()}
+    sample_weights = [class_weights[label] for label in labels]
+
+    return torch.DoubleTensor(sample_weights)
 
 
 def get_class_weights(labels):
-    class_counts = np.bincount(labels)
-    total_samples = np.sum(class_counts)
-    class_weights = total_samples / (len(class_counts) * class_counts)
-    return torch.tensor(class_weights, dtype=torch.float)
+    class_weights = compute_class_weight('balanced', classes=np.unique(labels), y=labels)
+    class_weights = torch.tensor(class_weights, dtype=torch.float)
+    return class_weights
+
 
 def get_device():
     if torch.cuda.is_available():
@@ -124,3 +130,30 @@ def get_device():
         device = torch.device("cpu")
         print("Using CPU")
     return device
+
+
+def get_backbone_model(backbone_name):
+    if backbone_name == "resnet101":
+        model_fn = resnet101_backbone
+        model_name = "ResNet101"
+    elif backbone_name == "maxvit":
+        model_fn = maxvit_backbone
+        model_name = "MaxVit"
+    elif backbone_name == "vit":
+        model_fn = vit_backbone
+        model_name = "ViT"
+    elif backbone_name == "swin":
+        model_fn = swin_backbone
+        model_name = "Swin"
+    else:
+        raise ValueError(f"Unknown backbone model: {backbone_name}")
+
+    return model_fn, model_name
+
+
+def stratified_split(dataset, val_split=0.1):
+    indices = list(range(len(dataset)))
+    y = dataset.labels
+    sss = StratifiedShuffleSplit(n_splits=1, test_size=val_split, random_state=42)
+    for train_idx, val_idx in sss.split(indices, y):
+        return train_idx, val_idx

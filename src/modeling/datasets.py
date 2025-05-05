@@ -13,6 +13,7 @@ class MammoDataset(torch.utils.data.Dataset):
             target_dir: str,
             extension="png",
             transform: transforms = None,
+            paths = None
     ):
         """
         Custom Dataset for loading the images from a directory structure.
@@ -24,7 +25,7 @@ class MammoDataset(torch.utils.data.Dataset):
         self.transform = transform
         self.extension = extension
         self.classes, self.class_to_idx = self._find_classes()
-        self.paths = self._load_paths()
+        self.paths = paths if paths is not None else self._load_paths()
 
     def __len__(self):
         return len(self.paths)
@@ -33,6 +34,7 @@ class MammoDataset(torch.utils.data.Dataset):
         img = self._load_image(idx)
         class_name = self.paths[idx].parent.name
         class_idx = self.class_to_idx[class_name]
+
         if self.transform:
             img = self.transform(image=img)["image"]
         return img, class_idx
