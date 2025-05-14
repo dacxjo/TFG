@@ -1,16 +1,20 @@
+import json
 import os
 import random
 import shutil
 from collections import Counter
 
+import matplotlib.pyplot as plt
 import numpy as np
+import pydicom
 import torch
+from matplotlib.patches import Polygon
 from pandas import DataFrame
 from sklearn.model_selection import train_test_split, StratifiedShuffleSplit
 from sklearn.utils.class_weight import compute_class_weight
-from src.modeling.backbones import resnet101_backbone, maxvit_backbone, vit_backbone, swin_backbone
 
 from config import SPLIT_TRAIN_DIR, SPLIT_VAL_DIR, SPLIT_TEST_DIR
+from src.modeling.backbones import resnet101_backbone, maxvit_backbone, vit_backbone, swin_backbone
 
 
 def make_grouped_splits(dataframe: DataFrame, patient_col: str, subtype_col: str):
@@ -157,3 +161,45 @@ def stratified_split(dataset, val_split=0.1):
     sss = StratifiedShuffleSplit(n_splits=1, test_size=val_split, random_state=42)
     for train_idx, val_idx in sss.split(indices, y):
         return train_idx, val_idx
+
+
+def show_segmentation_mlo_view(annotation_file_path, raw_image_file_path, show_only=None):
+    with open(annotation_file_path, 'r') as f:
+        data = json.load(f)
+
+    img = pydicom.dcmread(raw_image_file_path).pixel_array
+
+    if data is None:
+        raise Exception(f'Could not load {annotation_file_path}')
+
+    data_len = len(data)
+
+    fig, ax = plt.subplots(figsize=(10, 10))
+
+    labels = []
+
+    for i in range(data_len):
+        x_coords = [point['x'] for point in data[i]['cgPoints']]
+        y_coords = [point['y'] for point in data[i]['cgPoints']]
+
+        polygon = Polygon(np.column_stack([x_coords, y_coords]),
+                  closed=True,
+                  fill=True,
+                  alpha=0.5,
+                  color=data[i]['color'])
+
+        if show_only and show_only != data[i]['label']:
+            continue
+        else:
+            ax.add_patch(polygon)
+            ax.scatter(x_coords, y_coords, color='red', s=1)
+            labels.append(data[i]['label'])
+
+
+
+    ax.imshow(img, cmap='gray')
+
+    ax.set_title(','.join(labels))
+    ax.set_aspect('equal')
+
+    plt.show()

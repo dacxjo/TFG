@@ -1,6 +1,7 @@
 import torch
 import torchvision
 from torchvision.models import ResNet101_Weights, MaxVit_T_Weights, ViT_B_16_Weights, Swin_B_Weights
+import timm
 
 def resnet101_backbone(freeze_backbone: bool = False, num_classes=4):
     model = torchvision.models.resnet101(weights=ResNet101_Weights.DEFAULT)
@@ -18,14 +19,18 @@ def resnet101_backbone(freeze_backbone: bool = False, num_classes=4):
 
 
 def vit_backbone(freeze_backbone: bool = False, num_classes=4):
-    model = torchvision.models.vit_b_16(weights=ViT_B_16_Weights.DEFAULT)
-    model.heads.head = torch.nn.Linear(model.heads.head.in_features, num_classes)
+    model = timm.create_model(
+          'vit_base_patch16_224',
+          pretrained=True,
+          # Use as feature extractor
+          num_classes=0
+      )
 
     if freeze_backbone:
-        for param in model.parameters():
-            param.requires_grad = False
-        for param in model.heads.head.parameters():
-            param.requires_grad = True
+          for param in model.parameters():
+              param.requires_grad = False
+          for param in model.head.parameters():
+              param.requires_grad = True
 
     return model
 

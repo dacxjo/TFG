@@ -1,13 +1,14 @@
 import argparse
 
 import lightning as L
+import pandas as pd
 import wandb
 from dotenv import load_dotenv
 
 from src.modeling.datasets import MammoDataset
-from src.training.engine import run_kfold_training, run_full_training
+from src.training.engine import run_kfold_training, run_full_training, run_kfold_trainingV2
 from src.utils import get_device, get_backbone_model
-from config import SPLIT_TRAIN_DIR, ALLOWED_BACKBONES
+from config import SPLIT_TRAIN_DIR, ALLOWED_BACKBONES, PROCESSED_DATA_DIR
 
 
 def validate_args(args):
@@ -65,6 +66,8 @@ def main():
 
     dataset = MammoDataset(target_dir=args.train_dir, extension=args.extension)
 
+    train_dataframe = pd.read_csv(f'{PROCESSED_DATA_DIR}/cmmd_train_split.csv')
+
     model_fn, model_name = get_backbone_model(args.backbone)
 
     if args.training_mode == 'full':
@@ -80,10 +83,10 @@ def main():
             lr=args.lr,
         )
     else:
-        run_kfold_training(
+        run_kfold_trainingV2(
             model_fn=model_fn,
             model_name=model_name,
-            dataset=dataset,
+            dataframe=train_dataframe,
             n_splits=args.k_folds,
             augment=args.augment,
             oversample=args.oversample,

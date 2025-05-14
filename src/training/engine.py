@@ -14,8 +14,8 @@ from sklearn.model_selection import StratifiedKFold
 from torch.utils.data import WeightedRandomSampler
 
 from config import CHECKPOINTS_DIR
-from src.modeling.classifier import MolecularSubtypeClassifier
-from src.modeling.datasets import MammoDataset
+from src.modeling.classifier import MolecularSubtypeClassifier, MolecularSubtypeClassifierV2
+from src.modeling.datasets import MammoDataset, MammoDatasetV2
 from src.modeling.transforms import get_transforms
 from src.utils import get_experiment_name, get_class_weights, get_sample_weights, stratified_split
 
@@ -86,6 +86,66 @@ def get_k_folds(
 
         yield fold, train_loader, val_loader
 
+def get_k_foldsV2(
+        dataframe,
+        n_splits=5, batch_size=64, augment=False, seed=42, oversample=False
+):
+    skf = StratifiedKFold(n_splits=n_splits, shuffle=True, random_state=seed)
+    X = np.arange(len(dataframe))
+    y = dataframe['subtype'].values
+
+    train_transform_fn = lambda: get_transforms(augment=augment)
+    val_transform_fn = lambda: get_transforms(augment=False)
+
+    num_workers = min(8, max(1, os.cpu_count() // 2))
+    loader_args = {
+        "batch_size": batch_size,
+        "num_workers": num_workers,
+        "pin_memory": True,
+        "persistent_workers": num_workers > 0,
+        "prefetch_factor": 2 if num_workers > 0 else None,
+    }
+
+    for fold, (train_idx, val_idx) in enumerate(skf.split(X, y)):
+        assert set(train_idx).isdisjoint(set(val_idx)), "Train and Val indices overlap!"
+
+        train_df = dataframe.iloc[train_idx].reset_index(drop=True)
+        val_df = dataframe.iloc[val_idx].reset_index(drop=True)
+
+        train_dataset = MammoDatasetV2(
+            dataframe=train_df,
+            transform=train_transform_fn(),
+        )
+        val_dataset = MammoDatasetV2(
+            dataframe=val_df,
+            transform=val_transform_fn(),
+        )
+
+        assert len(train_dataset) + len(val_dataset) == len(dataframe), "Mismatch in total samples across folds."
+        assert train_dataset.transform is not val_dataset.transform, "Transform contamination!"
+
+        if oversample:
+            train_targets = train_df['subtype'].values
+            # train_targets = [train_dataset.class_to_idx[subtype] for subtype in train_targets]
+            sample_weights = get_sample_weights(train_targets)
+            sampler = WeightedRandomSampler(
+                weights=sample_weights,
+                num_samples=len(sample_weights),
+                replacement=True,
+            )
+            shuffle = False
+        else:
+            sampler = None
+            shuffle = True
+
+        train_loader = torch.utils.data.DataLoader(
+            train_dataset, shuffle=shuffle, sampler=sampler, **loader_args
+        )
+        val_loader = torch.utils.data.DataLoader(
+            val_dataset, shuffle=False, **loader_args
+        )
+
+        yield fold, train_loader, val_loader
 
 def run_kfold_training(
         model_fn,
@@ -145,6 +205,153 @@ def run_kfold_training(
                 num_classes=num_classes,
                 class_weights=class_weights if oversample == False else None,
                 class_names=dataset.classes,
+                learning_rate=learning_rate,
+            )
+
+            checkpoint_cb = ModelCheckpoint(
+                dirpath=f"{CHECKPOINTS_DIR}/{exp_name}/",
+                monitor="val_auroc", # TODO: Review
+                mode="max",
+                save_top_k=2,
+                filename=f"fold{fold}-{{epoch}}-{{val_auroc:.4f}}",
+                save_last=True,
+                verbose=True,
+            )
+
+            early_stopping_cb = EarlyStopping(
+                monitor="val_loss",
+                patience=10,
+                mode="min",
+                verbose=True,
+                min_delta=0.0001,
+            )
+
+            lr_scheduler_cb = LearningRateMonitor(logging_interval="epoch")
+
+            trainer = L.Trainer(
+                max_epochs=epochs,
+                logger=logger,
+                accelerator="auto",
+                # precision='16-mixed',
+                enable_model_summary=False,
+                log_every_n_steps=20,
+                callbacks=[checkpoint_cb, early_stopping_cb, lr_scheduler_cb],
+            )
+
+            trainer.fit(classifier, train_loader, val_loader)
+
+            metrics = trainer.callback_metrics
+
+            f1_macro_scores.append(metrics["val_f1_macro"].item())
+            recall_macro_scores.append(metrics["val_recall_macro"].item())
+            precision_macro_scores.append(metrics["val_precision_macro"].item())
+
+            f1_weighted_scores.append(metrics["val_f1_weighted"].item())
+            recall_weighted_scores.append(metrics["val_recall_weighted"].item())
+            precision_weighted_scores.append(metrics["val_precision_weighted"].item())
+
+            auroc_scores.append(metrics["val_auroc"].item())
+            accuracy_scores.append(metrics["val_accuracy"].item())
+            cohen_kappas.append(metrics["val_cohen_kappa"].item())
+
+            wandb.finish()
+            torch.cuda.empty_cache()
+
+        print("\n" + "-" * 100)
+        print("Final K-Fold Results:")
+        print(
+            f"Accuracy: {np.mean(accuracy_scores):.4f} ± {np.std(accuracy_scores):.4f}"
+        )
+        print(f"AUROC: {np.mean(auroc_scores):.4f} ± {np.std(auroc_scores):.4f}")
+
+        print(
+            f"F1-Score (Macro): {np.mean(f1_macro_scores):.4f} ± {np.std(f1_macro_scores):.4f}"
+        )
+        print(
+            f"Precision (Macro): {np.mean(precision_macro_scores):.4f} ± {np.std(precision_macro_scores):.4f}"
+        )
+        print(
+            f"Recall (Macro): {np.mean(recall_macro_scores):.4f} ± {np.std(recall_macro_scores):.4f}"
+        )
+
+        print(
+            f"F1-Score (Weighted): {np.mean(f1_weighted_scores):.4f} ± {np.std(f1_weighted_scores):.4f}"
+        )
+        print(
+            f"Precision (Weighted): {np.mean(precision_weighted_scores):.4f} ± {np.std(precision_weighted_scores):.4f}"
+        )
+        print(
+            f"Recall (Weighted): {np.mean(recall_weighted_scores):.4f} ± {np.std(recall_weighted_scores):.4f}"
+        )
+
+        print(f"Cohen Kappa: {np.mean(cohen_kappas):.4f} ± {np.std(cohen_kappas):.4f}")
+
+    except Exception as e:
+        print(f"An error occurred during training: {e}")
+        print(e.with_traceback())
+        wandb.finish()
+        torch.cuda.empty_cache()
+
+def run_kfold_trainingV2(
+        model_fn,
+        model_name,
+        dataframe,
+        n_splits=5,
+        augment=False,
+        oversample=False,
+        experiment_config=None,
+        num_classes=4,
+        epochs=10,
+        learning_rate=0.001,
+        device=None,
+        enable_logging=False,
+):
+    try:
+        print("Starting K-Fold training...")
+        exp_name = get_experiment_name(model=model_name)
+
+        f1_macro_scores = []
+        recall_macro_scores = []
+        precision_macro_scores = []
+
+        f1_weighted_scores = []
+        recall_weighted_scores = []
+        precision_weighted_scores = []
+
+        auroc_scores = []
+        accuracy_scores = []
+        cohen_kappas = []
+
+        logger = None
+
+        for fold, train_loader, val_loader in get_k_foldsV2(
+                dataframe, n_splits, augment=augment, oversample=oversample
+        ):
+            print(f"Fold {fold + 1}/{n_splits}")
+            print("-" * 50)
+
+            if enable_logging:
+                logger = WandbLogger(
+                    project="project-aletheia",
+                    name=f"{exp_name}-fold{fold}",
+                    log_model=False,
+                )
+
+            if logger is not None and experiment_config is not None:
+                logger.experiment.config.update(experiment_config)
+
+            backbone_mlo = model_fn(freeze_backbone=True)
+            backbone_cc = model_fn(freeze_backbone=True)
+
+            train_targets = train_loader.dataset.dataframe['subtype'].values
+            class_weights = get_class_weights(train_targets).to(device)
+
+            classifier = MolecularSubtypeClassifierV2(
+                backbone_mlo=backbone_mlo,
+                backbone_cc=backbone_cc,
+                num_classes=num_classes,
+                class_weights=class_weights if oversample == False else None,
+                class_names=dataframe['subtype'].unique(),
                 learning_rate=learning_rate,
             )
 

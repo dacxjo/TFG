@@ -1,5 +1,13 @@
+import os
+import shutil
+
 import cv2
 import numpy as np
+import pydicom
+import torch
+import torchio as tio
+
+from config import CONVERTED_DATA_DIR
 
 
 def smart_crop(image: np.ndarray, additional_margin=0) -> np.ndarray:
@@ -55,16 +63,63 @@ def median_filter(image: np.ndarray, kernel_size=1) -> np.ndarray:
     return cv2.medianBlur(image, kernel_size)
 
 
-def preprocess_image(image: np.ndarray, additional_margin=0, kernel_size=3) -> np.ndarray:
+def histogram_standarization(image: np.ndarray, landmarks):
+
+    landmarks_dict = {'default_image_name': landmarks}
+
+    transform = tio.transforms.HistogramStandardization(landmarks_dict)
+
+    img_tensor = torch.from_numpy(image).unsqueeze(0).unsqueeze(-1).float()
+
+    scalar_img = tio.ScalarImage(tensor=img_tensor, affine=np.eye(4))
+
+    transformed = transform(scalar_img)
+
+    result = transformed.data.squeeze(0).numpy()
+
+    return result
+
+def preprocess_image(image: np.ndarray, additional_margin=0, kernel_size=3, use_clahe=False, standarization_landmarks=None) -> np.ndarray:
     """
     Preprocess image
+    :param use_clahe: Whether to use CLAHE
     :param image: Image to preprocess
     :param additional_margin: Additional margin
     :param kernel_size: Kernel size
     :return: Processed image
     """
     cropped = smart_crop(image, additional_margin)
-    median = median_filter(cropped, kernel_size)
-    normalized = normalize(median)
-    result = apply_clahe(normalized)
-    return result
+    result = median_filter(cropped, kernel_size)
+
+    if standarization_landmarks is not None:
+        result = histogram_standarization(result, standarization_landmarks)
+
+    result = normalize(result)
+
+    return result if not use_clahe else apply_clahe(result)
+
+
+def preprocess_and_persist(df, use_clahe=False, standarization_landmarks=None):
+    if os.path.exists(CONVERTED_DATA_DIR):
+        shutil.rmtree(CONVERTED_DATA_DIR)
+
+    index = 0
+
+    for i, row in df.iterrows():
+        dcm = pydicom.dcmread(row['originalPath'])
+        img = dcm.pixel_array
+        processed_img = preprocess_image(image=img, additional_margin=25, use_clahe=use_clahe, standarization_landmarks=standarization_landmarks)
+
+        patient_folder = os.path.join(CONVERTED_DATA_DIR, row['patientId'])
+        os.makedirs(patient_folder, exist_ok=True)
+
+        image_name = f'{row["view"]}-{row["malignantSide"]}.png'
+
+        df.iloc[index, df.columns.get_loc('convertedPath')] = os.path.join(patient_folder,image_name)
+        cv2.imwrite(os.path.join(patient_folder, image_name), processed_img)
+        index += 1
+
+    print(f'Processed {index} images')
+    return df
+
+

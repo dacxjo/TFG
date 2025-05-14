@@ -100,3 +100,58 @@ class MammoDataset(torch.utils.data.Dataset):
         :return: List of class indices for each sample.
         """
         return [self.class_to_idx[path.parent.name] for path in self.paths]
+
+
+class MammoDatasetV2(torch.utils.data.Dataset):
+    def __init__(self, dataframe, transform=None):
+        self.dataframe = dataframe.reset_index(drop=True)
+        self.transform = transform
+        self.label_to_idx = {label: idx for idx, label in enumerate(self.dataframe["subtype"].unique())}
+
+    def __len__(self):
+        return len(self.dataframe)
+
+
+    def __getitem__(self, idx):
+        row = self.dataframe.iloc[idx]
+        mlo_img = cv2.imread(row['mlo_image'], cv2.IMREAD_COLOR)
+        mlo_img = cv2.cvtColor(mlo_img, cv2.COLOR_BGR2RGB)
+        cc_img = cv2.imread(row['cc_image'], cv2.IMREAD_COLOR)
+        cc_img = cv2.cvtColor(cc_img, cv2.COLOR_BGR2RGB)
+        label = self.label_to_idx[row["subtype"]]
+        if self.transform:
+            mlo_img = self.transform(image=mlo_img)["image"]
+            cc_img = self.transform(image=cc_img)["image"]
+
+        return (mlo_img, cc_img), label
+
+    def get_image_count_per_class(self, as_percentage=False, sort=True):
+        """
+        Count the number of images per class.
+        :return: Dictionary with class names as keys and number of images as values.
+        """
+        class_counts = self.dataframe['subtype'].value_counts(normalize=as_percentage)*2
+        if sort:
+            class_counts = class_counts.sort_values(ascending=False)
+        return class_counts.to_dict()
+
+    def find_classes(self):
+        classes = sorted(self.dataframe["subtype"].unique())
+        class_to_idx = {cls_name: i for i, cls_name in enumerate(classes)}
+        return classes, class_to_idx
+
+    @property
+    def classes(self):
+        """
+        Get the list of classes.
+        :return: List of class names.
+        """
+        return self.dataframe["subtype"].unique()
+
+    @property
+    def labels(self):
+        """
+        Extract class indices from paths.
+        :return: List of class indices for each sample.
+        """
+        return [self.label_to_idx[label] for label in self.dataframe["subtype"]]
