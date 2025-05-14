@@ -10,7 +10,7 @@
 - [Prediction](#prediction)
 
 
-## Overview
+## Overview of the project
 
 This project aims to train a deep learning model to classify breast cancer molecular subtypes using  The Chinese Mammography Database (CMMD).
 
