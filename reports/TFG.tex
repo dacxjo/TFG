@@ -127,9 +127,7 @@
 \selectlanguage{spanish}
 \noindent \textbf{\large Resumen}
 
-[DRAFT] El cáncer de mama es una de las neoplasias más prevalentes a nivel mundial y sigue siendo la principal causa de mortalidad en mujeres diagnosticadas con cáncer. La detección temprana y la clasificación precisa de los subtipos moleculares son esenciales para optimizar las estrategias terapéuticas y mejorar el pronóstico de las pacientes. En este contexto, el desarrollo de herramientas capaces de clasificar estos subtipos con alta precisión, especialmente mediante métodos no invasivos, resulta fundamental.
-
-Este estudio evalúa el desempeño de las arquitecturas de Deep Learning basadas en \textit{Transformers}, en específico la arquitectura \textit{Multi-Axis Vision Transformer (MaxVit)}, una variante de los \textit{Vision Transformers (ViT)}, como alternativas a los métodos tradicionales para la clasificación de subtipos de cáncer de mama, utilizando exclusivamente imágenes mamográficas.
+// TODO
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -171,83 +169,77 @@ Este estudio evalúa el desempeño de las arquitecturas de Deep Learning basadas
 \chapter{Introducción}
 \section{Contextualización del problema}
 
+En los últimos años, el cáncer de mama se ha consolidado como una de las principales causas de mortalidad entre las mujeres y representa el tipo de cáncer con mayor incidencia en esta población. Se estima que, en promedio, una de cada veinte mujeres a nivel mundial será diagnosticada con esta enfermedad a lo largo de su vida \cite{kim_global_2025}. Proyecciones recientes sugieren que, de mantenerse la tendencia actual, para el año 2050, se registrarán aproximadamente 3.2 millones de nuevos casos y 1.1 millones de muertes asociadas a esta patología, con un impacto especialmente significativo en los paises con bajo indice de desarrollo humano (HDI) \cite{kim_global_2025}.
 
-Ideas a mencionar en este apartado:
+En este contexto, las técnicas y herramientas de diagnóstico temprano desempeñan un papel fundamental para mejorar el pronóstico y supervicencia de las pacientes \cite{wang_early_2017}. 
 
-Test commit
+Sin embargo, el cancer de mama es una enfermedad heterogénea\footnote{Diversidad celular presente dentro de un tumor (heterogeneidad intratumoral) o entre diferentes tumores en un mismo individuo (heterogeneidad intertumoral).} que puede clasificarse en diversos subtipos según características clínicas y, especialmente, moleculares \cite{orrantia-borunda_subtypes_2022}. Por lo tanto, el pronóstico, la respuesta a la terápia y las opciones de tratamiento dependen en gran medida de la correcta identificación del subtipo molecular.
 
-\begin{itemize}
-  \item Breve explicación del cáncer de mama y sus efectos
-  \item Breve explicación de los subtipos moleculares y su importancia
-  \item Explicar, en el contexto de la tarea, qué utilidad tienen los subgrupos y las alternativas actuales (ventajas y desventajas)
-  \item Como la inteligencia artificial puede abordar el problema y aportar soluciones
-  \item Como lo abordaríamos usando estas nuevas herramientas y por qué.
-\end{itemize}
+Actualmente, la caracterización molecular del tumor se realiza principalmente mediante biopsia, un procedimiento invasivo y costoso que, en ocasiones, debe repetirse, lo que puede retrasar el inicio del tratamiento y aumentar la carga del paciente. Por ello, existe una necesidad creciente de desarrollar métodos no invasivos, accesibles y eficientes que permitan realizar esta tarea de manera fiable.
 
-\begin{center}
-  $\ast$~$\ast$~$\ast$
-\end{center}
+En este sentido, la mamografía se posiciona como herramienta clave, ya que es una técnica no invasiva, de bajo coste y ampliamente utilizada en el diagnóstico temprano del cáncer de mama. 
 
-En los últimos años, el cáncer de mama se ha consolidado como una de las principales causas de mortalidad en mujeres, además de ser el tipo de cáncer con mayor incidencia en esta población. Se estima que, en promedio, 1 de cada 20 mujeres a nivel mundial será diagnosticada con esta enfermedad a lo largo de su vida. Proyecciones recientes indican, que de mantenerse la tendencia actual, para el año 2050, habrá 3.2 millones de nuevos casos y 1.1 millones de muertes asociadas a esta patología \cite{kim_global_2025}.
+Con el surgimiento de las técnicas basadas en inteligencia artificial y aprendizaje profundo, la detección del cáncer de mama mediante mamografías ha experimentado un notable avance, alcanzando precisiones comparables o incluso superiores a las obtenidas por radiólogos expertos \cite{pattanaik_breast_2022, meenalochini_deep_2024, zahoor_breast_2022}. Más recientemente, estas metodologías han comenzado a aplicarse en la clasificación automática de subtipos moleculares a partir de imágenes mamográficas, lo que abre nuevas posibilidades para el desarrollo de métodos no invasivos de caracterización tumoral \cite{mota_breast_2024, ben_rabah_multimodal_2025}. 
 
+... //TODO: Desarrollar cierre
 
 \begin{figure}
     \centering
     \includegraphics[width=0.8\linewidth]{reports/assets/subtypes.png}
-    \caption{Resumen de los 4 subtipos moleculares del cáncer de mama y su porcentaje de relevancia \cite{harnessing_2024}}
+    \caption{Los 4 subtipos moleculares del cáncer de mama y su porcentaje de relevancia \cite{harnessing_2024}}
     \label{fig:subtypes}
 \end{figure}
 
 
 
-\newpage
-
 \section{Objetivos}
 
-\begin{itemize}
-  \item El objetivo principal es crear una herramienta que mediante mamografías pueda ser capaz de clasificar de manera eficiente entre los 4 subtipos moleculares, de forma que se pueda presentar como una alternativa viable a formas mucho mas invasivas y que pueden presentar muchos inconvenientes como las biopsias, u otros procedimeintos como los procesos Inmunohistoquímica (IHC) o Secuenciación Genética y Paneles Multigénicos (Oncotype DX, MammaPrint)
-  \item Esto lo haremos enfocándonos en las arquitecturas de modelos de Computer Vision basados en Transformers (Visión Transformers), específicamente enfocados en la arquitectura MaxVit, debido a su mecanismo de atención local y global. Evaluaremos tambien los vision Transformers normales(ViTs) y los Swin Transformers, asi como tambien las arquitecturas mas tradicionales pero efectivas hasta el momento de CNN como puede ser ResNet101
-  \item Evaluaremos métricas entre cada clasificador, alternando entre clasificación binaria, o multiclase, asi como tambien con fine-tunning o sin, para determinar que viene mejor en cada caso.
-  \item Finalmente tambien, exploraremos la explicabilidad del modelo, esta parte es interesante por que nos permitiría una idea clara de que zonas podría estar relacionadas con cada clase. Para esto utilizaremos tecnicas como GradCAM, Saliency Maps o SHAP.
-\end{itemize}
 
-\begin{center}
-  $\ast$~$\ast$~$\ast$
-\end{center}
+El objetivo principal de este estudio es desarrollar un modelo de aprendizaje profundo capaz de clasificar subtipos moleculares de cáncer de mama utilizando exclusivamente imágenes mamográficas del \textit{Chinese Mammography Database} (CMMD), sin recurrir a metadatos clínicos o anotaciones auxiliares. Esta tarea presenta importantes desafíos, como el desbalance de clases entre los diferentes subtipos moleculares, la escasez de datos etiquetados y la ausencia de anotaciones de regiones de interés en las imágenes, factores que dificultan el aprendizaje efectivo y pueden limitar el rendimiento de los modelos de inteligencia artificial en aplicaciones médicas.
+
+Para abordar estos retos, se evaluará de manera sistemática el rendimiento de distintas arquitecturas modernas basadas en Transformers, concretamente, Vision Transformer (ViT), Shifted-Window Transformer (SwinT) y Multi-Axis Vision Transformer (MaxViT), comparándolas con modelos convencionales basados en redes neuronales convolucionales. El enfoque en estas arquitecturas radica en que, a diferencia de las redes neuronales convolucionales tradicionales, son capaces de capturar relaciones globales y patrones complejos en las imágenes mediante mecanismos de atención, lo que resulta especialmente relevante para identificar características sutiles asociadas a la heterogeneidad molecular en las mamografías.
+
+Se realizarán experimentos exhaustivos que incluirán estrategias como el aumento de datos adaptativo (rotaciones, espejados y transformaciones de intensidad específicas para mamografías), técnicas de \textit{oversampling} y funciones de pérdida ponderadas para abordar el desbalance de clases. El rendimiento se evaluará mediante métricas robustas como el F1-score ponderado, el área bajo la curva ROC (AUC-ROC) y la precisión balanceada, permitiendo una comparación objetiva entre arquitecturas.
+
+Con los resultados obtenidos podremos realizar además un analisis comparativo con trabajos previos que han intentado atacar el mismo problema.
+
+Adicionalmente, se llevará a cabo un análisis de explicabilidad del mejor modelo entrenado mediante la generación de mapas de atención y técnicas de \textit{Gradient-weighted Class Activation Mapping} (Grad-CAM). Esto permitirá identificar las regiones de las mamografías que contribuyen significativamente a las decisiones del modelo, facilitando la validación clínica y aportando \textit{insights} sobre los patrones visuales asociados a cada subtipo molecular.
+
+... // TODO: Desarrollar cierre y estudio estadistico (p-values)
+
+\section{Planificación}
+
+\subsection{Tareas a desarrollar}
+
+// TODO
+
+\subsection{Cronograma}
+
+//TODO
 
 
-El objetivo principal de este estudio es desarrollar una herramienta basada en Inteligencia Artificial (AI), específicamente en aprendizaje profundo (Deep Learning, DL)\footnote{El Deep Learning es una rama del aprendizaje automático y la inteligencia artificial que se caracteriza por el uso de redes neuronales artificiales para el aprendizaje de patrones complejos.}, capaz de clasificar los cuatro subtipos moleculares del cáncer de mama a partir de imágenes mamográficas de pacientes diagnosticadas con esta enfermedad.
-
-Para ello, se evaluará el desempeño de uno de los modelos más recientes de DL especializados en tareas de visión por computador, el Multi-Axis Vision Transformer (MaxVit). Este modelo, gracias a su mecanismo de atención tanto local como global y su capacidad para procesar imágenes de alta resolución, representa una alternativa prometedora para esta tarea.
-
-Además, se realizará una comparativa del desempeño de MaxVit con modelos predecesores como Vision Transformer (ViT) y Swin Transformers (Shifted-Windows Transformers), así como con modelos basados en redes neuronales convolucionales, como ResNet-101.
-
-
-
-\section{Cronograma}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{Background}
 
 \section{Breast Cancer}
+\section{Molecular Subtypes}
+\section{Screening Process}
+\section{Mammography}
 
 
-\begin{itemize}
-  \item Definicición del cancer de mama
-    \item Clasificación en subtipos moleculares
-    \item Como se caracterizan estos subtipos
-     \item Utilidades de estos subtipos
-      \item Procedimientos estandar de clasificación (invasivos)
-       \item Inteligencia artificial y deep learning
-        \item IA en analisis de imagen
-         \item IA como solucion
-          \item Resultados anteriores
-           \item Propuesta
-            \item Transformers
-             \item MaxVit
-\end{itemize}
+\chapter{Technology Review}
 
+
+\chapter{Methodology}
+\section{CMMD Dataset}
+\section{Image Preprocessing}
+
+\chapter{Results and Discussion}
+\section{Results}
+
+\chapter{Conclusions and Future Work}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \backmatter
