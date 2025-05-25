@@ -1,5 +1,4 @@
 \documentclass[a4paper,10pt]{book}
-\usepackage{xypic}
 \usepackage[centertags]{amsmath}
 \usepackage{amscd}
 \usepackage{amsthm}
@@ -17,6 +16,12 @@
 \setlength{\parskip}{10pt}
 \usepackage[twoside,bindingoffset=1cm]{geometry}
 \usepackage{lmodern}
+\usepackage[x11names, dvipsnames, table]{xcolor}
+\definecolor{ubblue}{HTML}{0059A2}
+\usepackage[colorlinks=true, linkcolor=black, citecolor=ubblue, urlcolor=ubblue]{hyperref}
+\usepackage{cleveref}
+\usepackage[protrusion=true,expansion=true]{microtype}
+\usepackage{cite}
 
 
 %% Custom packages
@@ -124,8 +129,8 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
-\selectlanguage{spanish}
-\noindent \textbf{\large Resumen}
+\selectlanguage{english}
+\noindent \textbf{\large Abstract}
 
 // TODO
 
@@ -133,8 +138,8 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
-\selectlanguage{english}
-\noindent \textbf{\large Abstract}
+\selectlanguage{spanish}
+\noindent \textbf{\large Resumen}
 
 // TODO
 
@@ -149,12 +154,12 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
-\selectlanguage{spanish}
-\noindent \textbf{\large Agradecimientos}
+\selectlanguage{english}
+\noindent \textbf{\large Acknowledgements}
 
 // TODO
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\selectlanguage{spanish}
+\selectlanguage{english}
 \pagenumbering{roman} \setcounter{page}{0}
 \let\cleardoublepage\clearpage
 \tableofcontents
@@ -166,73 +171,65 @@
 \newpage \thispagestyle{empty}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \mainmatter
-\chapter{Introducción}
-\section{Contextualización del problema}
+\chapter{Introduction}
+\section{Problem Context}
 
-En los últimos años, el cáncer de mama se ha consolidado como una de las principales causas de mortalidad entre las mujeres y representa el tipo de cáncer con mayor incidencia en esta población. Se estima que, en promedio, una de cada veinte mujeres a nivel mundial será diagnosticada con esta enfermedad a lo largo de su vida \cite{kim_global_2025}. Proyecciones recientes sugieren que, de mantenerse la tendencia actual, para el año 2050, se registrarán aproximadamente 3.2 millones de nuevos casos y 1.1 millones de muertes asociadas a esta patología, con un impacto especialmente significativo en los paises con bajo indice de desarrollo humano (HDI) \cite{kim_global_2025}.
+Breast cancer has become one of the leading causes of mortality among women and represents the type of cancer with the highest incidence in this population. It is estimated that, on average, one in twenty women worldwide will be diagnosed with this disease during their lifetime \cite{kim_global_2025}. Recent projections suggest that if current trends continue, by the year 2050, approximately 3.2 million new cases and 1.1 million deaths associated with this pathology will be recorded, with a particularly significant impact in countries with a low Human Development Index (HDI) \cite{kim_global_2025}.
 
-En este contexto, las técnicas y herramientas de diagnóstico temprano desempeñan un papel fundamental para mejorar el pronóstico y supervicencia de las pacientes \cite{wang_early_2017}. 
+Against this backdrop, early diagnostic techniques and tools play a fundamental role in improving patient prognosis and survival rates \cite{wang_early_2017}. However, breast cancer is a heterogeneous disease\footnote{Cellular diversity either within a single tumor (intratumoral heterogeneity) or among different tumors in the same individual (intertumoral heterogeneity).} that can be classified into various subtypes according to clinical and especially molecular characteristics. The international guidelines from the 2013 St. Gallen Consensus \cite{goldhirsch_personalizing_2013} recognize four main subtypes based on hormone receptor status (estrogen, progesterone) and the proliferation marker Ki67: Luminal A, Luminal B, HER2-positive (HER2-enriched), and Triple Negative (see Figure \ref{fig:subtypes}). This classification has direct clinical implications, as prognosis, treatment response, and therapeutic options largely depend on the molecular subtype to which the tumor belongs.
 
-Sin embargo, el cancer de mama es una enfermedad heterogénea\footnote{Diversidad celular presente dentro de un tumor (heterogeneidad intratumoral) o entre diferentes tumores en un mismo individuo (heterogeneidad intertumoral).} que puede clasificarse en diversos subtipos según características clínicas y, especialmente, moleculares \cite{orrantia-borunda_subtypes_2022}. Por lo tanto, el pronóstico, la respuesta a la terápia y las opciones de tratamiento dependen en gran medida de la correcta identificación del subtipo molecular.
-
-Actualmente, la caracterización molecular del tumor se realiza principalmente mediante biopsia, un procedimiento invasivo y costoso que, en ocasiones, debe repetirse, lo que puede retrasar el inicio del tratamiento y aumentar la carga del paciente. Por ello, existe una necesidad creciente de desarrollar métodos no invasivos, accesibles y eficientes que permitan realizar esta tarea de manera fiable.
-
-En este sentido, la mamografía se posiciona como herramienta clave, ya que es una técnica no invasiva, de bajo coste y ampliamente utilizada en el diagnóstico temprano del cáncer de mama. 
-
-Con el surgimiento de las técnicas basadas en inteligencia artificial y aprendizaje profundo, la detección del cáncer de mama mediante mamografías ha experimentado un notable avance, alcanzando precisiones comparables o incluso superiores a las obtenidas por radiólogos expertos \cite{pattanaik_breast_2022, meenalochini_deep_2024, zahoor_breast_2022}. Más recientemente, estas metodologías han comenzado a aplicarse en la clasificación automática de subtipos moleculares a partir de imágenes mamográficas, lo que abre nuevas posibilidades para el desarrollo de métodos no invasivos de caracterización tumoral \cite{mota_breast_2024, ben_rabah_multimodal_2025}. 
-
-... //TODO: Desarrollar cierre
+Currently, tumor molecular characterization is primarily performed through biopsy, an invasive and costly procedure that may need to be repeated, potentially delaying treatment initiation and increasing the clinical, physical, and emotional burden on patients. Therefore, there is a growing need to develop non-invasive, accessible, and efficient methods that can perform this task reliably. In this regard, mammography stands out as a key tool, being a non-invasive, low-cost, and widely used technique for early breast cancer detection.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.8\linewidth]{reports/assets/subtypes.png}
-    \caption{Los 4 subtipos moleculares del cáncer de mama y su porcentaje de relevancia \cite{harnessing_2024}}
+    \caption{The 4 molecular subtypes of breast cancer and their prevalence percentage \cite{harnessing_2024}}
     \label{fig:subtypes}
 \end{figure}
 
+In recent years, advances in artificial intelligence (AI), along with the increasing availability of data and more efficient computational capabilities, have driven the development of deep learning (DL) models for tasks such as classification, detection, and prediction of breast cancer, among other diseases. Several studies have demonstrated that these systems can match or even surpass the performance of human experts or traditional CAD (Computer-Aided Diagnosis) systems in these tasks \cite{mckinney_international_2020,pattanaik_breast_2022,meenalochini_deep_2024,hussain_performance_2025}, highlighting the significant impact of this technology and its potential clinical benefit for patient care.
 
+Recent studies have explored the classification of molecular subtypes from mammographic images. Mota et al. (2024) \cite{mota_breast_2024} addressed this task using mammographic images exclusively, achieving an AUC of 60.62\% in multiclass classification with a ResNet101 architecture. Similarly, Rabah et al. (2025) \cite{ben_rabah_multimodal_2025} reported an AUC of 63.79\% using an Xception-based model and further proposed a multimodal approach integrating clinical metadata, which increased performance to 88.87\% AUC. Although the results obtained in unimodal scenarios remain modest and below the clinical utility threshold (\textasciitilde80\% AUC), these studies demonstrate the potential of imaging as a diagnostic source and reinforce the need for continued research to improve the precision and clinical utility of these models.
 
-\section{Objetivos}
+This study proposes an unimodal approach based exclusively on mammograms from the publicly available CMMD dataset \cite{cai_online_2023}, aiming to compare the performance of state-of-the-art Transformer-based architectures—Vision Transformer (ViT), Shifted-Windows Transformer (SwinT), and Multi-Axis Vision Transformer (MaxViT)—against a traditional deep convolutional neural network (CNN) baseline. Although multimodal models often achieve higher performance by integrating complementary clinical data, focusing solely on mammographic images has high practical value, especially in resource-limited settings or where clinical data standardization is not guaranteed. Recent studies have shown that Transformers outperform CNNs in accuracy and robustness for medical classification tasks due to their self-attention mechanisms, which allow them to capture global spatial relationships within the image \cite{mauricio_comparing_2023}. Based on these capabilities, it is hypothesized that the Transformer architectures analyzed could achieve superior performance in molecular subtype classification, even under an unimodal approach.
 
+Ultimately, this work aims to contribute to the development of non-invasive diagnostic tools by systematically evaluating Transformer models, with the goal of advancing toward automated, accessible, and efficient molecular characterization of breast cancer—particularly in contexts where biopsy is not an immediate option—thereby improving equitable access to diagnosis and reducing therapeutic intervention delays.
 
-El objetivo principal de este estudio es desarrollar un modelo de aprendizaje profundo capaz de clasificar subtipos moleculares de cáncer de mama utilizando exclusivamente imágenes mamográficas del \textit{Chinese Mammography Database} (CMMD), sin recurrir a metadatos clínicos o anotaciones auxiliares. Esta tarea presenta importantes desafíos, como el desbalance de clases entre los diferentes subtipos moleculares, la escasez de datos etiquetados y la ausencia de anotaciones de regiones de interés en las imágenes, factores que dificultan el aprendizaje efectivo y pueden limitar el rendimiento de los modelos de inteligencia artificial en aplicaciones médicas.
+\section{Objectives}
 
-Para abordar estos retos, se evaluará de manera sistemática el rendimiento de distintas arquitecturas modernas basadas en Transformers, concretamente, Vision Transformer (ViT), Shifted-Window Transformer (SwinT) y Multi-Axis Vision Transformer (MaxViT), comparándolas con modelos convencionales basados en redes neuronales convolucionales. El enfoque en estas arquitecturas radica en que, a diferencia de las redes neuronales convolucionales tradicionales, son capaces de capturar relaciones globales y patrones complejos en las imágenes mediante mecanismos de atención, lo que resulta especialmente relevante para identificar características sutiles asociadas a la heterogeneidad molecular en las mamografías.
+The main objective of this study is to develop a deep learning model capable of classifying molecular subtypes of breast cancer using only mammographic images from the \textit{Chinese Mammography Database} (CMMD), without relying on clinical metadata or auxiliary annotations. This task poses significant challenges, such as class imbalance between molecular subtypes, scarcity of labeled data, and the absence of region-of-interest annotations in the images, which hinder effective learning and may limit AI model performance in medical applications.
 
-Se realizarán experimentos exhaustivos que incluirán estrategias como el aumento de datos adaptativo (rotaciones, espejados y transformaciones de intensidad específicas para mamografías), técnicas de \textit{oversampling} y funciones de pérdida ponderadas para abordar el desbalance de clases. El rendimiento se evaluará mediante métricas robustas como el F1-score ponderado, el área bajo la curva ROC (AUC-ROC) y la precisión balanceada, permitiendo una comparación objetiva entre arquitecturas.
+To address these challenges, the performance of various modern Transformer-based architectures, specifically, Vision Transformer (ViT), Shifted-Window Transformer (SwinT), and Multi-Axis Vision Transformer (MaxViT), will be systematically evaluated and compared to traditional convolutional neural network models. The focus on these architectures lies in their ability to capture global relationships and complex patterns in images through attention mechanisms, which is particularly relevant for identifying subtle features associated with molecular heterogeneity in mammograms.
 
-Con los resultados obtenidos podremos realizar además un analisis comparativo con trabajos previos que han intentado atacar el mismo problema.
+Extensive experiments will be conducted, incorporating adaptive data augmentation strategies (rotations, flips, and intensity transformations specific to mammography), oversampling techniques, and weighted loss functions to tackle class imbalance. Performance will be evaluated using robust metrics such as weighted F1-score, area under the ROC curve (AUC-ROC), and balanced accuracy, enabling an objective comparison across architectures.
 
-Adicionalmente, se llevará a cabo un análisis de explicabilidad del mejor modelo entrenado mediante la generación de mapas de atención y técnicas de \textit{Gradient-weighted Class Activation Mapping} (Grad-CAM). Esto permitirá identificar las regiones de las mamografías que contribuyen significativamente a las decisiones del modelo, facilitando la validación clínica y aportando \textit{insights} sobre los patrones visuales asociados a cada subtipo molecular.
+With the results obtained, a comparative analysis will be carried out against previous studies that have addressed the same problem.
 
-... // TODO: Desarrollar cierre y estudio estadistico (p-values)
+Additionally, an explainability analysis of the best-performing model will be conducted through the generation of attention maps and Gradient-weighted Class Activation Mapping (Grad-CAM) techniques. This will help identify the mammographic regions that contribute significantly to the model's decisions, facilitating clinical validation and providing insights into the visual patterns associated with each molecular subtype.
 
-\section{Planificación}
+... // TODO: Develop conclusion and statistical analysis (p-values)
 
-\subsection{Tareas a desarrollar}
+\section{Planning}
+
+\subsection{Tasks to Develop}
 
 // TODO
 
-\subsection{Cronograma}
+\subsection{Schedule}
 
-//TODO
-
-
+// TODO
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{Background}
-
 \section{Breast Cancer}
 \section{Molecular Subtypes}
 \section{Screening Process}
 \section{Mammography}
 
-
 \chapter{Technology Review}
 
-
-\chapter{Methodology}
+\chapter{Materials and Methods}
 \section{CMMD Dataset}
 \section{Image Preprocessing}
 
@@ -243,10 +240,9 @@ Adicionalmente, se llevará a cabo un análisis de explicabilidad del mejor mode
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \backmatter
-\selectlanguage{spanish}
-\addcontentsline{toc}{chapter}{Bibliografía}
+\selectlanguage{english}
+\addcontentsline{toc}{chapter}{Bibliography}
 \bibliographystyle{ieeetr}
 \bibliography{references}
-
 
 \end{document}
