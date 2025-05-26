@@ -2,6 +2,8 @@ import os
 import random
 import shutil
 from collections import Counter
+import cv2
+
 
 import numpy as np
 import torch
@@ -10,7 +12,8 @@ from sklearn.model_selection import train_test_split, StratifiedShuffleSplit
 from sklearn.utils.class_weight import compute_class_weight
 from src.modeling.backbones import resnet101_backbone, maxvit_backbone, vit_backbone, swin_backbone
 
-from config import SPLIT_TRAIN_DIR, SPLIT_VAL_DIR, SPLIT_TEST_DIR
+from config import SPLITS_DATA_DIR
+from src.preprocessing import histogram_standarization
 
 
 def make_grouped_splits(dataframe: DataFrame, patient_col: str, subtype_col: str):
@@ -62,10 +65,31 @@ def copy_images(df, destination_path, path_col, patient_col, subtype_col):
         shutil.copy(p, os.path.join(destination_path, row[subtype_col], image_name))
 
 
-def persist_splits(train_df, val_df, test_df, patient_col="patientId", subtype_col="subtype", path_col="convertedPath"):
-    train_image_path = SPLIT_TRAIN_DIR
-    val_image_path = SPLIT_VAL_DIR
-    test_image_path = SPLIT_TEST_DIR
+def copy_images_and_standardize(df, destination_path, path_col, patient_col, subtype_col, standarization_landmarks=None):
+    df = df.copy()
+    for idx, row in df.iterrows():
+        patient_id = row[patient_col]
+        p = row[path_col]
+        if not os.path.exists(os.path.join(destination_path, row[subtype_col])):
+            os.makedirs(os.path.join(destination_path, row[subtype_col]))
+        image_name = f"{patient_id}_{p.split('/')[-1]}"
+        final_npy_path = os.path.join(destination_path, row[subtype_col], f"{image_name}.npy")
+
+        df.loc[idx, 'img_path'] = final_npy_path
+        img = cv2.imread(p, cv2.IMREAD_UNCHANGED).astype(np.float32)
+        if standarization_landmarks is not None:
+            img = histogram_standarization(img, standarization_landmarks)
+
+        np.save(final_npy_path, img)
+    df = df.drop(columns=[path_col])
+    df.to_csv(os.path.join(destination_path, 'df.csv'), index=False)
+
+
+
+def persist_splits(train_df, val_df, test_df, patient_col="patientId", subtype_col="subtype", path_col="convertedPath", standardize=False, standarization_landmarks=None, seed=42):
+    train_image_path = os.path.join(SPLITS_DATA_DIR, str(seed), "train")
+    val_image_path = os.path.join(SPLITS_DATA_DIR, str(seed), "val")
+    test_image_path = os.path.join(SPLITS_DATA_DIR, str(seed), "test")
 
     if os.path.exists(train_image_path):
         shutil.rmtree(train_image_path)
@@ -79,22 +103,31 @@ def persist_splits(train_df, val_df, test_df, patient_col="patientId", subtype_c
     os.makedirs(train_image_path, exist_ok=True)
     os.makedirs(test_image_path, exist_ok=True)
 
-    copy_images(train_df, train_image_path, path_col, patient_col, subtype_col)
-    copy_images(test_df, test_image_path, path_col, patient_col, subtype_col)
+    if standardize:
+        copy_images_and_standardize(train_df, train_image_path, path_col, patient_col, subtype_col, standarization_landmarks)
+        copy_images_and_standardize(test_df, test_image_path, path_col, patient_col, subtype_col, standarization_landmarks)
 
-    if val_df is not None:
-        os.makedirs(val_image_path, exist_ok=True)
-        copy_images(val_df, val_image_path, path_col, patient_col, subtype_col)
+        if val_df is not None:
+            os.makedirs(val_image_path, exist_ok=True)
+            copy_images_and_standardize(val_df, val_image_path, path_col, patient_col, subtype_col, standarization_landmarks)
+    else:
+        copy_images(train_df, train_image_path, path_col, patient_col, subtype_col)
+        copy_images(test_df, test_image_path, path_col, patient_col, subtype_col)
+
+        if val_df is not None:
+            os.makedirs(val_image_path, exist_ok=True)
+            copy_images(val_df, val_image_path, path_col, patient_col, subtype_col)
 
 
-def make_grouped_holdout_split(dataframe, patient_col, subtype_col, test_size=0.2):
+def make_grouped_holdout_split(dataframe, patient_col, subtype_col, test_size=0.2, seed=42):
     patient_subtypes = dataframe[[patient_col, subtype_col]].drop_duplicates()
     trainval_patients, test_patients = train_test_split(
         patient_subtypes, test_size=test_size,
-        stratify=patient_subtypes[subtype_col], random_state=42
+        stratify=patient_subtypes[subtype_col], random_state=seed
     )
     trainval_df = dataframe[dataframe[patient_col].isin(trainval_patients[patient_col])]
     test_df = dataframe[dataframe[patient_col].isin(test_patients[patient_col])]
+    assert set(trainval_df[patient_col]).isdisjoint(set(test_df[patient_col])), "Patient leakage detected!"
     return trainval_df, test_df
 
 
