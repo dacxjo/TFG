@@ -83,48 +83,48 @@
 \pagestyle{empty}
 
 \begin{titlepage}
-\begin{center}
-\begin{figure}[htb]
-\begin{center}
-\includegraphics[width=6cm]{assets/ub_color.pdf}
-\end{center}
-\end{figure}
-
-\def\worktitle{Development of an AI-Based Tool for Molecular Subtype Classification of Invasive Ductal Breast Carcinoma Using Mammography}
-
-\textbf{\LARGE Treball final de grau} \\
-\vspace*{.5cm}
-\textbf{\LARGE GRAU D'ENGINYERIA INFORM\`{A}TICA } \\
-\vspace*{.5cm}
-\textbf{\LARGE Facultat de Matem\`atiques i Inform\`atica\\ Universitat de Barcelona} \\
-\vspace*{1.0cm}
-\rule{16cm}{0.1mm}\\
-\begin{Huge}
-\textbf{Development of an AI-Based Tool for Molecular Subtype Classification of Invasive Ductal Breast Carcinoma Using Mammography} \\
-\end{Huge}
-\rule{16cm}{0.1mm}\\
-
-\vspace{1cm}
-
-\begin{flushright}
-
-
-\vspace*{2.5cm}
-
-\hfill
-
-\renewcommand{\arraystretch}{1.5}
-\begin{tabular}{ll}
-\textbf{\small Autor:} & \textbf{\small David Bland\'on T\'orrez } \\
-\textbf{\small Director:} & \textbf{\small Dr. Oliver D\'iaz Montesdeoca } \\
-\textbf{\small Realitzat a:} & \textbf{\small  Departament de Matem\`{a}tiques i  Inform\`{a}tica  } \\
-\textbf{\small Barcelona,} & \textbf{\small \today }
-\end{tabular}
-
-\end{flushright}
-
-\end{center}
-
+	\begin{center}
+		\begin{figure}[htb]
+			\begin{center}
+				\includegraphics[width=6cm]{assets/ub_color.pdf}
+			\end{center}
+		\end{figure}
+		
+		\def\worktitle{Development of an AI-Based Tool for Molecular Subtype Classification of Invasive Ductal Breast Carcinoma Using Mammography}
+		
+		\textbf{\LARGE Treball final de grau} \\
+		\vspace*{.5cm}
+		\textbf{\LARGE GRAU D'ENGINYERIA INFORM\`{A}TICA } \\
+		\vspace*{.5cm}
+		\textbf{\LARGE Facultat de Matem\`atiques i Inform\`atica\\ Universitat de Barcelona} \\
+		\vspace*{1.0cm}
+		\rule{16cm}{0.1mm}\\
+		\begin{Huge}
+			\textbf{Development of an AI-Based Tool for Molecular Subtype Classification of Invasive Ductal Breast Carcinoma Using Mammography} \\
+		\end{Huge}
+		\rule{16cm}{0.1mm}\\
+		
+		\vspace{1cm}
+		
+		\begin{flushright}
+			
+			
+			\vspace*{2.5cm}
+			
+			\hfill
+			
+			\renewcommand{\arraystretch}{1.5}
+			\begin{tabular}{ll}
+				\textbf{\small Autor:}       & \textbf{\small David Bland\'on T\'orrez }                             \\
+				\textbf{\small Director:}    & \textbf{\small Dr. Oliver D\'iaz Montesdeoca }                        \\
+				\textbf{\small Realitzat a:} & \textbf{\small  Departament de Matem\`{a}tiques i  Inform\`{a}tica  } \\
+				\textbf{\small Barcelona,}   & \textbf{\small \today }                                               
+			\end{tabular}
+			
+		\end{flushright}
+		
+	\end{center}
+	
 \end{titlepage}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -174,26 +174,26 @@
 \chapter{Introduction}
 \section{Problem Context}
 
-Breast cancer has become one of the leading causes of mortality among women and represents the type of cancer with the highest incidence in this population. It is estimated that, on average, one in twenty women worldwide will be diagnosed with this disease during their lifetime \cite{kim_global_2025}. Recent projections suggest that if current trends continue, by the year 2050, approximately 3.2 million new cases and 1.1 million deaths associated with this pathology will be recorded, with a particularly significant impact in countries with a low Human Development Index (HDI) \cite{kim_global_2025}.
+Breast cancer has become one of the leading causes of mortality among women and represents the type of cancer with the highest incidence in this population. It is estimated that, on average, one in twenty women worldwide will be diagnosed with this disease during her lifetime \cite{kim_global_2025}. Recent projections suggest that, if the current trend continues, by 2050 approximately 3.2 million new cases and 1.1 million deaths associated with this pathology will be recorded, with a particularly significant impact in countries with a low Human Development Index (HDI) \cite{kim_global_2025}.
 
-Against this backdrop, early diagnostic techniques and tools play a fundamental role in improving patient prognosis and survival rates \cite{wang_early_2017}. However, breast cancer is a heterogeneous disease\footnote{Cellular diversity either within a single tumor (intratumoral heterogeneity) or among different tumors in the same individual (intertumoral heterogeneity).} that can be classified into various subtypes according to clinical and especially molecular characteristics. The international guidelines from the 2013 St. Gallen Consensus \cite{goldhirsch_personalizing_2013} recognize four main subtypes based on hormone receptor status (estrogen, progesterone) and the proliferation marker Ki67: Luminal A, Luminal B, HER2-positive (HER2-enriched), and Triple Negative (see Figure \ref{fig:subtypes}). This classification has direct clinical implications, as prognosis, treatment response, and therapeutic options largely depend on the molecular subtype to which the tumor belongs.
+In this context, early-diagnosis techniques and tools play a fundamental role in improving patients’ prognosis and survival \cite{wang_early_2017}. However, breast cancer is a heterogeneous disease\footnote{Cellular diversity present within a tumor (intratumoral heterogeneity) or between different tumors in the same individual (intertumoral heterogeneity).} that can be classified into various subtypes according to clinical and—especially—molecular characteristics. The 2013 St. Gallen International Consensus guidelines \cite{goldhirsch_personalizing_2013} recognize four main subtypes based on hormone receptors (estrogen, progesterone) and the proliferation marker Ki67: Luminal A, Luminal B, HER2-positive (HER2-enriched) and Triple Negative (see Figure \ref{fig:subtypes}). This classification has direct clinical implications, as prognosis, therapy response and treatment options largely depend on the molecular subtype to which the tumor belongs.
 
-Currently, tumor molecular characterization is primarily performed through biopsy, an invasive and costly procedure that may need to be repeated, potentially delaying treatment initiation and increasing the clinical, physical, and emotional burden on patients. Therefore, there is a growing need to develop non-invasive, accessible, and efficient methods that can perform this task reliably. In this regard, mammography stands out as a key tool, being a non-invasive, low-cost, and widely used technique for early breast cancer detection.
+Currently, molecular characterization of the tumor is carried out mainly through biopsy, an invasive and costly procedure that sometimes must be repeated, which can delay the start of treatment and increase the clinical, physical and emotional burden on patients. Therefore, there is a growing need to develop non-invasive, accessible and efficient methods that can perform this task reliably. In this regard, mammography stands out as a key tool, as it is non-invasive, low-cost and widely used in the early diagnosis of breast cancer.
 
 \begin{figure}
-    \centering
-    \includegraphics[width=0.8\linewidth]{reports/assets/subtypes.png}
-    \caption{The 4 molecular subtypes of breast cancer and their prevalence percentage \cite{harnessing_2024}}
-    \label{fig:subtypes}
+	\centering
+	\includegraphics[width=0.8\linewidth]{reports/assets/subtypes.png}
+	\caption{The 4 molecular subtypes of breast cancer and their prevalence percentage \cite{harnessing_2024}}
+	\label{fig:subtypes}
 \end{figure}
 
-In recent years, advances in artificial intelligence (AI), along with the increasing availability of data and more efficient computational capabilities, have driven the development of deep learning (DL) models for tasks such as classification, detection, and prediction of breast cancer, among other diseases. Several studies have demonstrated that these systems can match or even surpass the performance of human experts or traditional CAD (Computer-Aided Diagnosis) systems in these tasks \cite{mckinney_international_2020,pattanaik_breast_2022,meenalochini_deep_2024,hussain_performance_2025}, highlighting the significant impact of this technology and its potential clinical benefit for patient care.
+In recent years, advances in artificial intelligence (AI), together with the increasing availability of data and ever more efficient computational capacity, have driven the development of deep-learning (DL) models for tasks such as classification, detection and prediction of breast cancer, as well as other diseases. Several studies have shown that these systems can match and even surpass the performance of human experts or computer-aided diagnosis (CAD) systems in such tasks \cite{mckinney_international_2020,pattanaik_breast_2022,meenalochini_deep_2024,hussain_performance_2025}, demonstrating the significant impact of this technology and its potential benefit for clinical practice and patient well-being.
 
-Recent studies have explored the classification of molecular subtypes from mammographic images. Mota et al. (2024) \cite{mota_breast_2024} addressed this task using mammographic images exclusively, achieving an AUC of 60.62\% in multiclass classification with a ResNet101 architecture. Similarly, Rabah et al. (2025) \cite{ben_rabah_multimodal_2025} reported an AUC of 63.79\% using an Xception-based model and further proposed a multimodal approach integrating clinical metadata, which increased performance to 88.87\% AUC. Although the results obtained in unimodal scenarios remain modest and below the clinical utility threshold (\textasciitilde80\% AUC), these studies demonstrate the potential of imaging as a diagnostic source and reinforce the need for continued research to improve the precision and clinical utility of these models.
+Recently, the classification of molecular subtypes from mammographic images has been explored. Mota et al. (2024) \cite{mota_breast_2024} addressed this task, achieving a 60.62\% AUC in multiclass classification with a ResNet101 architecture. In turn, Rabah et al. (2025) \cite{ben_rabah_multimodal_2025} reached an AUC of 63.79\% using an Xception model and further proposed a multimodal approach that integrated clinical metadata, raising performance to 88.87\% AUC. Although the results obtained in unimodal scenarios are still modest and remain below the clinically useful threshold (\textasciitilde80\% AUC), these studies demonstrate the potential of imaging as a diagnostic source and reinforce the need to continue research in this direction to improve the accuracy and clinical utility of such models.
 
-This study proposes an unimodal approach based exclusively on mammograms from the publicly available CMMD dataset \cite{cai_online_2023}, aiming to compare the performance of state-of-the-art Transformer-based architectures—Vision Transformer (ViT), Shifted-Windows Transformer (SwinT), and Multi-Axis Vision Transformer (MaxViT)—against a traditional deep convolutional neural network (CNN) baseline. Although multimodal models often achieve higher performance by integrating complementary clinical data, focusing solely on mammographic images has high practical value, especially in resource-limited settings or where clinical data standardization is not guaranteed. Recent studies have shown that Transformers outperform CNNs in accuracy and robustness for medical classification tasks due to their self-attention mechanisms, which allow them to capture global spatial relationships within the image \cite{mauricio_comparing_2023}. Based on these capabilities, it is hypothesized that the Transformer architectures analyzed could achieve superior performance in molecular subtype classification, even under an unimodal approach.
+This study proposes a unimodal approach based exclusively on mammograms from the public CMMD dataset (The Chinese Mammography Database) \cite{cai_online_2023}, with the aim of comparing the performance of state-of-the-art Transformer architectures such as Vision Transformer (ViT), Shifted-Window Transformer (SwinT) and Multi-Axis Vision Transformer (MaxViT) against a traditional deep convolutional neural-network (CNN) baseline. Although multimodal models usually achieve better results by integrating complementary clinical data, focusing solely on mammographic images has high practical value, especially in resource-limited settings or where the standardization of clinical data is not guaranteed. Recent studies have shown that Transformers outperform CNNs in accuracy and robustness in medical-classification tasks thanks to their self-attention mechanisms, which capture global spatial relationships within the image \cite{mauricio_comparing_2023}. Based on these design advantages, this study hypothesizes that Transformer architectures could achieve superior performance in molecular-subtype classification even under a unimodal approach.
 
-Ultimately, this work aims to contribute to the development of non-invasive diagnostic tools by systematically evaluating Transformer models, with the goal of advancing toward automated, accessible, and efficient molecular characterization of breast cancer—particularly in contexts where biopsy is not an immediate option—thereby improving equitable access to diagnosis and reducing therapeutic intervention delays.
+Ultimately, this work seeks to contribute to the development of non-invasive diagnostic tools by systematically evaluating Transformer models, in order to advance toward automated, accessible and efficient molecular characterization of breast cancer—especially in contexts where biopsy is not an immediate option—thereby helping to improve equitable access to diagnosis and to reduce therapeutic-intervention times.
 
 \section{Objectives}
 
