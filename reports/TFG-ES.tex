@@ -22,6 +22,11 @@
 \usepackage{cleveref}
 \usepackage[protrusion=true,expansion=true]{microtype}
 \usepackage{cite}
+\usepackage{booktabs}
+\usepackage{IEEEtrantools}
+\usepackage{subcaption}
+\usepackage{enumitem}
+
 
 
 
@@ -35,6 +40,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%% aix{\`o} pels headings %%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{fancyhdr}
+\setlength{\headheight}{12.69002pt}
 \pagestyle{fancy}
 \renewcommand{\chaptermark}[1]{\markboth{#1}{}}
 \renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
@@ -80,7 +86,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
-
+\bstctlcite{IEEEexample:BSTcontrol}
 \pagestyle{empty}
 
 \begin{titlepage}
@@ -265,60 +271,166 @@ A continuación, se presenta el cronograma del proyecto, representado mediante u
 
 \chapter{Antecedentes}
 
-\section{Cáncer de mama: Contexto clínico y relevancia}
-\section{Clasificación molecular del cáncer de mama}
-\section{Mamografía y su rol en la caracterización tumoral}
+\section{Cáncer de mama}
+
+El cáncer de mama es una neoplasia\footnote{Es un crecimiento anormal y descontrolado de células, que da lugar a una masa o tumor, se llama benigno si es de crecimiento lento y focalizado o maligno si es invasivo y rápido.} maligna que se origina en el tejido glandular de la mama, principalmente en los conductos y lobulillos, donde ciertas células sufren mutaciones genéticas que alteran su control de crecimiento celular. Estas alteraciones permiten que las células se multipliquen de manera descontrolada, formando masas tumorales que pueden infiltrar tejidos adyacentes y propagarse incluso a órganos distantes a través del sistema linfático y el torrente sanguíneo. En ausencia de un diagnóstico precoz y tratamiento oportuno, esta diseminación, también llamada metástasis, puede comprometer gravemente la supervivencia de la paciente.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.3\linewidth]{reports//assets/bc.jpg}
+    \caption{Anatomía del cáncer de mama \cite{cleveland_clinic_breast_2023}}
+    \label{fig:breast-cancer-anatomy}
+\end{figure}
+
+\subsection{Epidemiología}
+
+A nivel mundial, es la neoplasia más frecuente entre mujeres y es la principal causa de mortalidad oncológica en esta población. En 2022, se estimaron aproximadamente 2.3 millones de nuevos casos y se registraron 670.000 muertes por esta enfermedad, según datos de la Organización Mundial de la Salud (OMS) \cite{who_breast_2024}. En España, representa casi el 30\% de todos los casos de cáncer y se estima que en 2025 se registren aproximadamente 37,400 nuevos casos, según las proyecciones y estudios de la Asociación Española de Oncología Médica (SEOM) \cite{seom_cancer_nodate}.
+
+\subsection{Clasificación clínica}
+
+La mayoría de los cánceres de mama son carcinomas, es decir, tumores malignos que se originan en el epitelio de los conductos o lóbulos mamarios. Desde una perspectiva clínica, estos tumores se pueden clasificar según diferentes criterios, entre los que destacan:
+
+\textbf{Según su grado de invasión}
+\begin{itemize}
+    \item \textbf{Carcinoma in situ}: Se trata de un tumor en el que las células anormales están solo dentro de los conductos de la mama y no han atravesado la barrera natural que los separa del resto del tejido mamario. Aunque no es invasivo, se considera una lesión precursora y de alto riesgo.
+    \item \textbf{Carcinoma invasivo}: Es un tumor que ha atravesado los conductos o lobulillos de la mama y ha invadido el tejido mamario que los rodea. Puede diseminarse a ganglios linfáticos o a distancia.
+\end{itemize}
+
+\textbf{Según su origen histológico}
+\begin{itemize}
+
+    \item \textbf{Carcinoma ductal}: Se origina en los conductos galactóforos\footnote{Conductos que transportan la leche desde las glándulas mamarias hasta el pezón.} y es el subtipo más común.
+    \item \textbf{Carcinoma lobulillar}: Se origina en los lóbulos mamarios y suele presentar un patrón de diseminación más difuso.
+\end{itemize}
+
+\textbf{Según hallazgos radiológicos}
+
+La clasificación radiológica se basa en las características observadas mediante mamografía, ecografía o resonancia magnética. El sistema BI-RADS (Breast Imaging-Reporting and Data System) permite estandarizar la interpretación y asignar una categoría de sospecha que guía la conducta médica (seguimiento, biopsia, etc.).
+
+En las figuras \ref{fig:histological_types_one} y \ref{fig:histological_types_two} se observan las diferencias entre carcinoma ductal y lobulillar tanto in situ como invasivo.
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[c]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{reports/assets/dcis.jpg}
+        \caption{Carcinoma ductal in situ}
+        \label{fig:dcis}
+    \end{subfigure}
+    \begin{subfigure}[c]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{reports/assets/idc.jpg}
+        \caption{Carcinoma ductal invasivo}
+        \label{fig:idc}
+    \end{subfigure}
+    \caption{Ductal in situ vs. invasivo \cite{noauthor_nci_2011}}
+    \label{fig:histological_types_one}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[c]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{reports/assets/lcis.jpg}
+        \caption{Carcinoma lobulillar in situ}
+        \label{fig:lcis}
+    \end{subfigure}
+    \begin{subfigure}[c]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{reports/assets/ilc.jpg}
+        \caption{Carcinoma lobulillar invasivo}
+        \label{fig:ilc}
+    \end{subfigure}
+    \caption{Lobulillar in situ vs. invasivo \cite{noauthor_nci_2011}}
+    \label{fig:histological_types_two}
+\end{figure}
+
+Además de estas clasificaciones, en los últimos años ha adquirido especial relevancia la tipificación molecular del cáncer de mama, basada en la expresión de biomarcadores y perfiles genómicos, la cual será abordada en la siguiente sección.
+
+
+\section{Subtipos moleculares}
+
+
+Aunque la clasificación clínica e histológica del cáncer de mama proporciona información relevante para el diagnóstico y estadiaje, no siempre permite predecir con precisión el comportamiento biológico del tumor ni su respuesta a tratamientos específicos. Por este motivo, en las últimas décadas ha cobrado especial relevancia la clasificación molecular, que permite caracterizar los tumores según su perfil de expresión génica y la presencia de biomarcadores clave.
+
+Desde un enfoque clínico-patológico, estos subtipos moleculares se determinan comúnmente mediante técnicas de inmunohistoquímica (IHC), evaluando la expresión de receptores hormonales y otros marcadores como HER2 y Ki-67. Esta estratificación resulta fundamental para definir el pronóstico de las pacientes y orientar la selección de terapias dirigidas, hormonales o quimioterápicas.
+
+La clasificación más aceptada agrupa los carcinomas mamarios en cuatro grandes subtipos: \textbf{Luminal A}, \textbf{Luminal B}, \textbf{HER2-enriquecido (HER2+)} y \textbf{Triple Negativo}, cada uno con características biológicas y clínicas distintivas. Estos subtipos constituyen la base de esta investigación, ya que el objetivo principal del presente trabajo es desarrollar un modelo capaz de clasificarlos automáticamente a partir de imágenes mamográficas.
+
+\section{Imagen médica}
+\section{Cribado del cáncer}
 \section{Inteligencia artificial en la imagen médica}
 \section{Clasificación de subtipos moleculares mediante imagen}
 
 \chapter{Revisión tecnológica}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+En este apartado se exploran las definiciones y estructuras modernas de modelos de inteligencia artificial, así como también su uso en medicina moderna y en específico en imagen médica.
 
 
-\section{Inteligencia artificial y aprendizaje profundo}
+\section{Inteligencia artificial}
 \subsection{De la IA clásica al Deep Learning}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 \subsection{Línea de tiempo}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
 \section{Redes neuronales convolucionales}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 \subsection{Principios generales}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 \subsection{Arquitecturas y variantes históricas}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 \subsection{Limitaciones en mamografía}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
 
 \section{Transformers para visión}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 \subsection{Breve historia}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 \subsection{Principios de la autoatención}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 \subsection{Vision Transformer (ViT)}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 \subsection{Shifted-Window Transformer (Swin)}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 \subsection{Multi-Axis Vision Transformer (MaxViT)}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 \section{Técnicas de entrenamiento y evaluación}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 \subsection{Transfer learning y fine-tuning}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 \subsection{Validación cruzada K-Fold}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-\section{Comparativa Transformers vs. CNN en imagen médica}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-
 
 
 
 \chapter{Materiales y metodología}
-\section{Dataset CMMD}
-\subsection{Descripción general}
-\subsection{Análisis de los datos}
+
+En esta sección se documentan los materiales y procesos llevados a cabo para la realización de este proyecto. Se describe en primer lugar el conjunto de datos seleccionado para el entrenamiento y análisis de los modelos, seguido del procesamiento y preparación de las imágenes, y finalmente las métricas de evaluación empleadas para valorar el rendimiento de los modelos.
+
+\section{The Chinese Mammography Database}
+
+El Chinese Mammography Database (CMMD) es un conjunto de datos público, desarrollado por Cai et al. (2023) \cite{cai_online_2023} y alojado en The Cancer Imaging Archive (TCIA)\footnote{\url{https://www.cancerimagingarchive.net/collection/cmmd/}}. Este dataset incluye un total de 3.712 mamografías correspondientes a 1.775 pacientes de origen chino, en vistas cráneo-caudal (CC) y medio-lateral oblicua (MLO), recolectadas entre julio de 2012 y enero de 2016. El CMMD se divide en dos subconjuntos: CMMD1, que contiene estudios con información clínica básica, y CMMD2, que incluye además la anotación del subtipo molecular. Este último constituye la base principal de la presente investigación, al ser el único subconjunto público y de libre acceso que proporciona dichas etiquetas moleculares de forma explícita.
+
+En el cuadro \ref{tab:cmmd_features} se detallan las características principales de cada subconjunto, y en la figura \ref{fig:cmmd_criteria} se ilustran los criterios de inclusión y exclusión aplicados durante la conformación del conjunto de datos.
+
+
+\begin{table}
+    \centering
+    \begin{tabular}{lccccc}
+        \toprule
+        & \textbf{CMMD1} & \textbf{CMMD2} & \\
+        \midrule
+        \textbf{Número de pacientes} & 1026 & 749 & 1775\\
+        \textbf{Número de imágenes} & 2214 & 1498 & 3712\\
+        \textbf{Edad media de pacientes} & 45.92 (17-84 años) & 49.82 (21-87 años) & - \\
+        \textbf{Categorías} & Benigno y Maligno & Solo maligno & - \\
+        \textbf{Subtipo molecular} & No & Si & - \\
+        \bottomrule
+    \end{tabular}
+    \caption{Características de los subconjuntos del CMMD}
+    \label{tab:cmmd_features}
+\end{table}
+
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\linewidth]{reports//assets/cmmd_criteria.png}
+	\caption{Criterios de inclusión/exclusión del CMMD \cite{cai_online_2023}}
+	\label{fig:cmmd_criteria}
+\end{figure}
+
+
+
+
+\subsection{Descripción general y análisis}
+
+Como se ha mencionado con anterioridad, este proyecto se basa exclusivamente en el subconjunto CMMD2
 \section{La revisión de TOMPEI-CMMD}
 \section{Preprocesamiento de imágenes}
 \section{Partición y estratificación de datos}
@@ -334,7 +446,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 \backmatter
 \selectlanguage{spanish}
 \addcontentsline{toc}{chapter}{Bibliografía}
-\bibliographystyle{ieeetr}
+\bibliographystyle{IEEEtran}
 \bibliography{references}
 
 
