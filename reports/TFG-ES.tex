@@ -26,6 +26,7 @@
 \usepackage{IEEEtrantools}
 \usepackage{subcaption}
 \usepackage{enumitem}
+\setlist[itemize]{itemsep=4pt, parsep=2pt, topsep=2pt, leftmargin=*}
 
 
 
@@ -254,9 +255,9 @@ Para alcanzar este objetivo, se plantean los siguientes \textbf{objetivos secund
 	\item \textbf{Entrega y presentación}: Entrega de la memoria y resumir los resultados más importantes para la presentación ante el comité.
 \end{enumerate}
 
-\subsection{Cronograma}
+\subsection{Planificación}
 
-A continuación, se presenta el cronograma del proyecto, representado mediante un diagrama de Gantt que muestra las tareas previstas y su distribución temporal a lo largo del periodo de ejecución.
+A continuación, se presenta la planificación del proyecto, representada mediante un diagrama de Gantt que muestra las tareas previstas y su distribución temporal, que comprende 4 meses de trabajo divido en tareas de investigación, desarrollo y síntesis.
 
 \begin{figure}[h!]
 	\centering
@@ -288,7 +289,7 @@ A nivel mundial, es la neoplasia más frecuente entre mujeres y es la principal 
 
 \subsection{Clasificación clínica}
 
-La mayoría de los cánceres de mama son carcinomas, es decir, tumores malignos que se originan en el epitelio de los conductos o lóbulos mamarios. Desde una perspectiva clínica, estos tumores se pueden clasificar según diferentes criterios, entre los que destacan:
+La mayoría de los cánceres de mama son carcinomas, es decir, tumores malignos que se originan en los conductos o lóbulos mamarios. Desde una perspectiva clínica, estos tumores se pueden clasificar según diferentes criterios, entre los que destacan:
 
 \textbf{Según su grado de invasión}
 \begin{itemize}
@@ -309,7 +310,7 @@ La clasificación radiológica se basa en las características observadas median
 
 En las figuras \ref{fig:histological_types_one} y \ref{fig:histological_types_two} se observan las diferencias entre carcinoma ductal y lobulillar tanto in situ como invasivo.
 
-\begin{figure}[h]
+\begin{figure}[h!]
     \centering
     \begin{subfigure}[c]{0.48\textwidth}
         \centering
@@ -327,7 +328,7 @@ En las figuras \ref{fig:histological_types_one} y \ref{fig:histological_types_tw
     \label{fig:histological_types_one}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[h!]
     \centering
     \begin{subfigure}[c]{0.48\textwidth}
         \centering
@@ -348,16 +349,57 @@ En las figuras \ref{fig:histological_types_one} y \ref{fig:histological_types_tw
 Además de estas clasificaciones, en los últimos años ha adquirido especial relevancia la tipificación molecular del cáncer de mama, basada en la expresión de biomarcadores y perfiles genómicos, la cual será abordada en la siguiente sección.
 
 
-\section{Subtipos moleculares}
+\subsection{Subtipos moleculares}
+
+Aunque la clasificación clínica e histológica del cáncer de mama proporciona información relevante para el diagnóstico, no siempre permite predecir con precisión el comportamiento biológico del tumor ni su respuesta a tratamientos específicos. 
+
+Fueron las investigaciones de Perou et al. (2000) \cite{perou_molecular_2000} y Sørli et al. (2003) \cite{sorlie_repeated_2003} las que sentaron las bases para la caracterización molecular del cáncer de mama. Mediante el análisis de perfiles de expresión génica\footnote{Estudio que permite identificar qué genes están activos y en que cantidad en una célula o tejido, analizando los niveles de ARN producidos por miles de genes simultáneamente.}, Perou et al. demostraron que el cáncer de mama es una enfermedad heterogénea y propusieron una clasificación en subtipos moleculares que se basó en los patrones de expresión genética de los tumores analizados. Así se definieron inicialmente cuatro subtipos, \textbf{Luminal A}, \textbf{Luminal B}, \textbf{HER2}, \textbf{Basal-like (Triple negativo)}.
+
+Por su parte, Sørli et al. reforzaron estos hallazgos. Reprodujeron la investigación en diferentes cohortes de pacientes, demostrando que los hallazgos no eran artefactos de un solo estudio. Además, demostraron que los subtipos moleculares se asocian con diferencias clínicamente significativas, como el pronóstico y riesgo de metástasis a distancia, lo cual proporcionó a esta caracterización un valor predictivo superior a la clasificación histológica tradicional.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{reports//assets/dendogram.png}
+    \caption{Dendrograma del estudio de Sørli et al. que muestra el agrupamiento de subtipos según los patrones genéticos \cite{sorlie_repeated_2003}.}
+    \label{fig:sorlie-dandrogram}
+\end{figure}
 
 
-Aunque la clasificación clínica e histológica del cáncer de mama proporciona información relevante para el diagnóstico y estadiaje, no siempre permite predecir con precisión el comportamiento biológico del tumor ni su respuesta a tratamientos específicos. Por este motivo, en las últimas décadas ha cobrado especial relevancia la clasificación molecular, que permite caracterizar los tumores según su perfil de expresión génica y la presencia de biomarcadores clave.
+A partir de estos estudios, los esfuerzos se centraron en llevar los resultados a la práctica clínica. Debido a que la técnica utilizada para la clasificación en ese momento (microarrays de ADN) era costosa, compleja y no accesible para la mayoría de centros hospitalarios, se buscó una alternativa. Fue en los consensos internacionales de St. Gallen donde se propusieron criterios de clasificación basados en marcadores inmunohistoquímicos (IHQ) y se formalizan los subtipos utilizando una combinación de los siguientes receptores hormonales \cite{lips_breast_2013}:
 
-Desde un enfoque clínico-patológico, estos subtipos moleculares se determinan comúnmente mediante técnicas de inmunohistoquímica (IHC), evaluando la expresión de receptores hormonales y otros marcadores como HER2 y Ki-67. Esta estratificación resulta fundamental para definir el pronóstico de las pacientes y orientar la selección de terapias dirigidas, hormonales o quimioterápicas.
+\begin{itemize}
+    \item \textbf{Receptores de Estrógeno (RE) y Progesterona (RP)}: Definen la dependencia hormonal del tumor que puede afectar su crecimiento. Responden bien a terapia hormonal.
+    \item \textbf{HER2 (Human epidermal growth factor receptor 2)}: Proteína que estimula el crecimiento celular. Su sobreexpresión suele indicar un subtipo más agresivo.
+    \item \textbf{Ki-67}: Es el índice de proliferación celular. Un Ki-67 alto sugiere un tumor con mayor agresividad y rápida proliferación.
+\end{itemize}
 
-La clasificación más aceptada agrupa los carcinomas mamarios en cuatro grandes subtipos: \textbf{Luminal A}, \textbf{Luminal B}, \textbf{HER2-enriquecido (HER2+)} y \textbf{Triple Negativo}, cada uno con características biológicas y clínicas distintivas. Estos subtipos constituyen la base de esta investigación, ya que el objetivo principal del presente trabajo es desarrollar un modelo capaz de clasificarlos automáticamente a partir de imágenes mamográficas.
+\begin{table}
+    \centering
+    \begin{tabular}{lccccc}
+        \toprule
+        \textbf{Subtipo} & \textbf{HER2} & \textbf{ER} & \textbf{PR} & \textbf{Ki-67} \\
+        \midrule
+        Luminal A & Negativo & Positivo & Positivo & < 14\% \\
+        Luminal B/HER2- & Negativo & Positivo & - & $\geq$ 14\% \\
+        Luminal B/HER2+ & Positivo & Positivo & - & - \\
+        HER2-enriched & Positive & Negativo & Negativo & - \\
+        Triple Negativo & Negativo & Negativo & Negativo & - \\
+        \bottomrule
+    \end{tabular}
+    \caption{Criterios de clasificación de subtipos moleculares del consenso de St. Gallen 2013 \cite{goldhirsch_personalizing_2013}}.
+    \label{tab:molecular_subtypes_comb}
+\end{table}
+
+En el cuadro \ref{tab:molecular_subtypes_comb} se pueden observar dichos criterios de clasificación.
+
+El subtipo Luminal A es el más frecuente, representando 70\% de las muestras al momento del diagnóstico. Se caracterizan por un crecimiento más lento y responden bien a las terapias hormonales, lo que los convierte en tumores de mejor pronóstico y mayores posibilidades de supervivencia. Los del grupo Luminal B son más agresivos y, por tanto, con un pronóstico más reservado y con más probabilidades de recurrencia, suelen resistirse más a los tratamientos hormonales y pueden necesitar quimioterapia. 
+
+Por su parte, los tumores HER2-enriched representan entre el 10\% y el 15\% de los casos, y se distinguen por una rápida tasa de crecimiento y por la sobreexpresión del receptor HER2, sin presencia de receptores hormonales y finalmente, el subtipo triple negativo, que también aparece en un 10–15\% de los diagnósticos, carece de expresión de RE, RP y HER2. Este grupo presenta un comportamiento clínico más agresivo, con alta tasa de recaídas tempranas y una limitada gama de opciones terapéuticas, ya que no responde a la hormonoterapia ni a los tratamientos dirigidos. La quimioterapia convencional es actualmente la principal estrategia terapéutica.
 
 \section{Imagen médica}
+
+La imagen médica representa un conjunto de técnicas y procedimientos utilizados para generar representaciones visuales del interior del cuerpo humano con fines clínicos y científicos. Estas herramientas permiten la visualización no invasiva de estructuras anatómicas y procesos fisiológicos, facilitando tanto el diagnóstico de enfermedades como el estudio de la anatomía física y metabólica.
+
 \section{Cribado del cáncer}
 \section{Inteligencia artificial en la imagen médica}
 \section{Clasificación de subtipos moleculares mediante imagen}
@@ -391,13 +433,13 @@ En este apartado se exploran las definiciones y estructuras modernas de modelos 
 
 \chapter{Materiales y metodología}
 
-En esta sección se documentan los materiales y procesos llevados a cabo para la realización de este proyecto. Se describe en primer lugar el conjunto de datos seleccionado para el entrenamiento y análisis de los modelos, seguido del procesamiento y preparación de las imágenes, y finalmente las métricas de evaluación empleadas para valorar el rendimiento de los modelos.
+En esta sección se documentan los materiales y procesos llevados a cabo para la realización de este estudio. Se describe en primer lugar el conjunto de datos seleccionado para el entrenamiento y análisis de los modelos, seguido del procesamiento y preparación de las imágenes, y finalmente las métricas de evaluación empleadas para valorar el rendimiento de los modelos.
 
 \section{The Chinese Mammography Database}
 
-El Chinese Mammography Database (CMMD) es un conjunto de datos público, desarrollado por Cai et al. (2023) \cite{cai_online_2023} y alojado en The Cancer Imaging Archive (TCIA)\footnote{\url{https://www.cancerimagingarchive.net/collection/cmmd/}}. Este dataset incluye un total de 3.712 mamografías correspondientes a 1.775 pacientes de origen chino, en vistas cráneo-caudal (CC) y medio-lateral oblicua (MLO), recolectadas entre julio de 2012 y enero de 2016. El CMMD se divide en dos subconjuntos: CMMD1, que contiene estudios con información clínica básica, y CMMD2, que incluye además la anotación del subtipo molecular. Este último constituye la base principal de la presente investigación, al ser el único subconjunto público y de libre acceso que proporciona dichas etiquetas moleculares de forma explícita.
+El Chinese Mammography Database (CMMD) es un conjunto de datos público, desarrollado por Cai et al. (2023) \cite{cai_online_2023} y alojado en The Cancer Imaging Archive (TCIA)\footnote{\url{https://www.cancerimagingarchive.net/collection/cmmd/}}. Este dataset incluye un total de 3.712 mamografías correspondientes a 1.775 pacientes de origen chino, en vistas cráneo-caudal (CC) y medio-lateral oblicua (MLO), recolectadas entre julio de 2012 y enero de 2016. El CMMD se divide en dos subconjuntos: CMMD1, que contiene estudios con información clínica básica, y CMMD2, que incluye además anotaciones del subtipo molecular. Este último constituye la base principal de la presente investigación, al ser el único subconjunto público y de libre acceso que proporciona dichas etiquetas moleculares de forma explícita.
 
-En el cuadro \ref{tab:cmmd_features} se detallan las características principales de cada subconjunto, y en la figura \ref{fig:cmmd_criteria} se ilustran los criterios de inclusión y exclusión aplicados durante la conformación del conjunto de datos.
+En el cuadro \ref{tab:cmmd_features} se detallan las características principales de cada subconjunto.
 
 
 \begin{table}
@@ -418,20 +460,106 @@ En el cuadro \ref{tab:cmmd_features} se detallan las características principale
 \end{table}
 
 
-\begin{figure}
+\subsection{Descripción general y análisis}
+
+Como se ha mencionado anteriormente, para la realización de estudio, el enfoque estará en el subconjunto de CMMD2. Para la conformación del mismo, se seleccionaron únicamente los casos malignos con información completa de los marcadores inmunohistoquímicos y diagnóstico de carcinoma invasivo, tal como se detalla en los criterios de exclusión representados en la Figura \ref{fig:cmmd_criteria}. Tras aplicar estos criterios, la muestra final quedó constituida por 1,498 imágenes correspondientes a 749 pacientes.
+
+
+\begin{figure}[h]
 	\centering
 	\includegraphics[width=0.8\linewidth]{reports//assets/cmmd_criteria.png}
-	\caption{Criterios de inclusión/exclusión del CMMD \cite{cai_online_2023}}
+	\caption{Criterios de exclusión del CMMD \cite{cai_online_2023}}
 	\label{fig:cmmd_criteria}
 \end{figure}
 
 
+\textbf{Recolección de las imágenes}
+
+Las imágenes fueron recolectadas mediante el uso del sistema de mamografía \textbf{GE Senographe DS}, obteniendo por cada paciente tanto la vista cráneo-caudal como la medio-lateral oblicua, esto representa una limitación del conjunto de datos que se explorará más adelante. Posteriormente, fueron almacenadas en escala de grises de 8-bits y en una resolución de 2294x1914 píxeles \cite{cai_online_2023}.
+
+\textbf{Formato y resolución de las imágenes}
+
+El formato principal de las imágenes del conjunto de datos es DICOM (Digital Imaging and Communications in Medicine), el estándar en imagen médica, ya que permite almacenar metadatos clínicos junto con la imagen y permite la interoperabilidad entre equipos de diferentes fabricantes así como también la interacción entre diferentes sistemas informáticos en hospitales y centros de salud.
+
+\textbf{Metadatos}
+
+Para cada paciente, el conjunto de datos proporciona un fichero CSV (Comma Separated Values)\footnote{Archivo de texto plano que almacena datos en forma de tabla, donde cada línea representa una fila y cada valor de la fila está separado por una coma} con información adicional a las imágenes obtenidas, incluyendo la edad, la lateralidad, el tipo de anormalidad, la clasificación  y, en el caso del CMMD2, también el subtipo molecular al que pertenece el tumor. La Tabla \ref{tab:cmmd2_metadata} describe en detalle estos datos.
 
 
-\subsection{Descripción general y análisis}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{>{\bfseries}l p{5cm} p{6cm}}
+        \toprule
+        \textbf{Columna} & \textbf{Descripción} & \textbf{Valores posibles} \\
+        \midrule
+        ID1 & Identificador único del paciente & Formato: D2-XXXX \\
+        LeftRight & Lateralidad de la mama & L (izquierda), R (derecha) \\
+        Age & Edad del paciente al momento del estudio & Entre 21 y 87 años \\
+        Number & Número de imágenes disponibles por estudio & Entre 2 y 4 \\
+        Abnormality & Tipo de anomalía & Masa, Calcificación, Ambas \\
+        Classification & Naturaleza de la anomalía & Benigna, Maligna \\
+        Subtype & Subtipo molecular del cáncer de mama & Luminal A, Luminal B, HER2-enriquecido, Triple negativo \\
+        \bottomrule
+    \end{tabular}
+    \caption{Descripción de las variables presentes en los metadatos del conjunto CMMD.}
+    \label{tab:cmmd2_metadata}
+\end{table}
 
-Como se ha mencionado con anterioridad, este proyecto se basa exclusivamente en el subconjunto CMMD2
-\section{La revisión de TOMPEI-CMMD}
+Es importante destacar que, en el caso del CMMD2, la columna lateralidad indica el lado donde fue encontrado el tumor, por tanto, el lado contrario se considera benigno \cite{cai_online_2023}.
+
+La distribución de la edad de las pacientes sigue aproximadamente una distribución normal, aunque presenta ligeras asimetrías. El rango de edad más frecuente se sitúa entre los 45 y 55 años, lo cual es coherente con la epidemiología del cáncer de mama, ya que la mayoría de los casos se detectan en ese intervalo. La inclusión de pacientes jóvenes en el conjunto de datos también aporta diversidad y permite analizar el comportamiento de los modelos en subpoblaciones menos representadas.
+
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}[c]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{reports//assets/age.png}
+        \caption{Distribución por edad}
+        \label{fig:age_dist}
+    \end{subfigure}
+    \begin{subfigure}[c]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{reports/assets/age_subtype.png}
+        \caption{Distribución por edad y subtipo}
+        \label{fig:age_subtype}
+    \end{subfigure}
+    \caption{Distribución por edad de los pacientes (CMMD2)}
+    \label{fig:age_dist_all}
+\end{figure}
+
+En la Figura \ref{fig:age_dist_all} podemos observar dicha distribución, así como también una vista a la distribución de los subtipos presentados.
+
+Por otro lado, analizar la distribución de los subtipos moleculares en el conjunto CMMD2 es un aspecto crucial, ya que determina la representatividad estadística de cada clase y, por ende, la capacidad de los modelos para generalizar adecuadamente en escenarios clínicos reales. En este conjunto se observa un fuerte desbalance de clases\footnote{Se habla de desbalance cuando una o más clases están representadas con una frecuencia significativamente mayor o menor que el resto.}, siendo el subtipo Luminal A el más prevalente, con 376 pacientes, seguido por Luminal B con 152 casos y HER2-enriquecido con 135. Finalmente, el subtipo Triple Negativo es el menos representado, con apenas 86 pacientes.
+
+Esta desproporción también se refleja en el número de imágenes disponibles por clase, ya que cada paciente cuenta con al menos dos imágenes (proyecciones CC y MLO), salvo en algunos casos excepcionales, además esta desigualdad plantea un desafío importante para los modelos de clasificación, que tienden a favorecer las clases mayoritarias si no se aplican estrategias de compensación adecuadas. Sin embargo, refleja con fidelidad la prevalencia relativa observada en la práctica clínica, donde los subtipos Luminales son los más frecuentes y los casos Triple Negativo representan una proporción menor.
+
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}[c]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{reports//assets/subtype_hist.png}
+        \caption{Distribución por edad}
+        \label{fig:subtype_hist}
+    \end{subfigure}
+    \begin{subfigure}[c]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{reports/assets/subtype_pie.png}
+        \caption{Distribución por edad y subtipo}
+        \label{fig:subtype_pie}
+    \end{subfigure}
+    \caption{Distribución por edad de los pacientes (CMMD2)}
+    \label{fig:subtype_charts}
+\end{figure}
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{reports//assets/images_examples.png}
+    \caption{Ilustración de dos ejemplos por cada subtipo molecular (CC y MLO)}
+    \label{fig:cmmd-examples}
+\end{figure}
+
+\section{La revisión TOMPEI-CMMD}
 \section{Preprocesamiento de imágenes}
 \section{Partición y estratificación de datos}
 \section{Métricas de evaluación}
