@@ -172,6 +172,10 @@
 \newpage \thispagestyle{empty}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\listoffigures
+\listoftables
+
+
 \pagestyle{fancy}
 \markboth{Introducción}{Introducción}
 \newpage \thispagestyle{empty}
@@ -189,7 +193,7 @@ Currently, molecular tumor characterization is mainly performed through tissue b
 \begin{figure}
 	\centering
 	\includegraphics[width=0.8\linewidth]{reports/assets/subtypes.png}
-	\caption{Classification of breast cancer molecular subtypes, showing approximate proportions (\%) among all breast cancer cases. Subtypes are ordered by prognosis severity, with those having better outcomes at the top and progressively worse prognoses toward the bottom \cite{harnessing_2024}.}
+	\caption[Classification of breast cancer molecular subtypes.]{Classification of breast cancer molecular subtypes, showing approximate proportions (\%) among all breast cancer cases. Subtypes are ordered by prognosis severity, with those having better outcomes at the top and progressively worse prognoses toward the bottom \cite{harnessing_2024}.}
 	\label{fig:subtypes}
 \end{figure}
 
@@ -256,7 +260,7 @@ The project planning is represented in the Gantt chart below (Figure \ref{fig:ro
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=1\linewidth]{reports//assets/RoadmapV3.png}
-	\caption{Gantt Chart.}
+	\caption[Planning Gantt Chart]{Gantt Chart.}
 	\label{fig:roadmap}
 \end{figure}
 
@@ -273,7 +277,7 @@ These alterations allow cells to multiply uncontrollably, forming tumor masses t
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.3\linewidth]{reports//assets/bc.jpg}
-	\caption{Anatomy of breast cancer \cite{cleveland_clinic_breast_2023}.}
+	\caption[Anatomy of breast cancer]{Anatomy of breast cancer \cite{cleveland_clinic_breast_2023}.}
 	\label{fig:breast-cancer-anatomy}
 \end{figure}
 
@@ -313,7 +317,7 @@ Figures \ref{fig:histological_types_one} and \ref{fig:histological_types_two} sh
 		\caption{Invasive ductal carcinoma}
 		\label{fig:idc}
 	\end{subfigure}
-	\caption{Anatomical comparison between ductal carcinoma in situ (DCIS) and invasive ductal carcinoma (IDC). (a) DCIS shows abnormal cells confined within the milk duct structure, while (b) IDC demonstrates cancer cells that have broken through the duct wall and invaded surrounding breast tissue \cite{noauthor_nci_2011}.}
+	\caption[DCIS vs. IDC comparison]{Anatomical comparison between ductal carcinoma in situ (DCIS) and invasive ductal carcinoma (IDC). (a) DCIS shows abnormal cells confined within the milk duct structure, while (b) IDC demonstrates cancer cells that have broken through the duct wall and invaded surrounding breast tissue \cite{noauthor_nci_2011}.}
 	\label{fig:histological_types_one}
 \end{figure}
 
@@ -331,7 +335,7 @@ Figures \ref{fig:histological_types_one} and \ref{fig:histological_types_two} sh
 		\caption{Invasive lobular carcinoma}
 		\label{fig:ilc}
 	\end{subfigure}
-	\caption{Progression from lobular carcinoma in situ (LCIS) to invasive lobular carcinoma (ILC). (a) LCIS represents abnormal cell growth restricted to the milk-producing lobules, whereas (b) ILC shows malignant cells spreading from lobules into adjacent breast tissue \cite{noauthor_nci_2011}.}
+	\caption[LCIS vs. ILC comparison]{Progression from lobular carcinoma in situ (LCIS) to invasive lobular carcinoma (ILC). (a) LCIS represents abnormal cell growth restricted to the milk-producing lobules, whereas (b) ILC shows malignant cells spreading from lobules into adjacent breast tissue \cite{noauthor_nci_2011}.}
 \label{fig:histological_types_two}
 \end{figure}
 
@@ -352,7 +356,7 @@ Clinical staging systems are a way of determining how much cancer there is and h
 \end{itemize}
 
 \begin{table}[h!]
-	\caption{Breast Imaging-Reporting and Data System (BI-RADS) classification \cite{noauthor_bi-rads_2025}.}
+	\caption[Breast Imaging-Reporting and Data System (BI-RADS)]{Breast Imaging-Reporting and Data System (BI-RADS) classification \cite{noauthor_bi-rads_2025}.}
 	\centering
 	\begin{tabular}{lccccc}
 		\toprule
@@ -385,7 +389,7 @@ Sørli et al. reinforced these findings. They replicated the research in differe
 \begin{figure}
 	\centering
 	\includegraphics[width=0.8\linewidth]{reports//assets/dendogram.png}
-	\caption{Dendrogram from the study by Sørli et al. showing the clustering of subtypes according to genetic patterns \cite{sorlie_repeated_2003}.}
+	\caption[Molecular subtypes dendrogram by Sørli et al.]{Dendrogram from the study by Sørli et al. showing the clustering of subtypes according to genetic patterns \cite{sorlie_repeated_2003}.}
 	\label{fig:sorlie-dandrogram}
 \end{figure}
 
@@ -401,7 +405,7 @@ Table \ref{tab:molecular_subtypes_comb} shows these classification criteria.
 
 \begin{table}[h!]
 	\centering
-        \caption{Classification criteria for molecular subtypes from the St. Gallen 2013 consensus \cite{goldhirsch_personalizing_2013}}.
+        \caption[Breast cancer molecular subtypes classification criteria]{Classification criteria for molecular subtypes from the St. Gallen 2013 consensus \cite{goldhirsch_personalizing_2013}}.
 	\begin{tabular}{lccccc}
 		\toprule
 		\textbf{Subtype} & \textbf{HER2} & \textbf{ER} & \textbf{PR} & \textbf{Ki-67} \\
@@ -429,7 +433,7 @@ For breast cancer diagnosis, several imaging techniques are currently employed, 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.75\linewidth]{reports//assets/medical_imaging.png}
-    \caption{Overview of breast imaging modalities classified by the type of physical principle used, including x-ray, ultrasound, magnetic field, gamma radiation and non-ionizing techniques \cite{iranmakani_review_2020}.}
+    \caption[Overview of breast imaging modalities]{Overview of breast imaging modalities classified by the type of physical principle used, including x-ray, ultrasound, magnetic field, gamma radiation and non-ionizing techniques \cite{iranmakani_review_2020}.}
     \label{fig:breast_cancer_medical}
 \end{figure}
 
@@ -440,7 +444,7 @@ In this work, X-ray mammography images will be used as input to our model to inf
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.45\linewidth]{reports//assets/mammography.jpg}
-    \caption{Illustration showing the traditional mammography procedure \cite{nihDefinitionMammogramNCI2011}.}
+    \caption[Traditional mammography procedure]{Illustration showing the traditional mammography procedure \cite{nihDefinitionMammogramNCI2011}.}
     \label{fig:mammography}
 \end{figure}
 
@@ -456,36 +460,50 @@ Each breast is typically imaged using two standard views to ensure tissue visual
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.5\linewidth]{reports//assets/cc_view.jpg}
-    \caption{Illustration of CC view acquisition: a) The breast is positioned horizontally on the detector and compressed with a paddle. b) Top-down compression is applied to obtain the X-ray projection. 
+    \includegraphics[width=0.6\linewidth]{reports//assets/cc_view.jpg}
+    \caption[CC view acquisition procedure]{Illustration of CC view acquisition: a) The breast is positioned horizontally on the detector and compressed with a paddle. b) Top-down compression is applied to obtain the X-ray projection. 
     c) Resulting mammogram image (CC view) \cite{imaging_introduction_2022}. }
     \label{fig:cc_view}
 \end{figure}
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.5\linewidth]{reports//assets/mlo_view.jpg}
-    \caption{Illustration of MLO view acquisition: a) The breast is positioned at an oblique angle on the detector and compressed with a paddle. b) Compression is applied from the upper inner to the lower outer aspect to obtain the oblique X-ray projection. c) Resulting mammogram image (MLO view) \cite{imaging_introduction_2022}.}
+    \includegraphics[width=0.6\linewidth]{reports//assets/mlo_view.jpg}
+    \caption[MLO view acquisition procedure]{Illustration of MLO view acquisition: a) The breast is positioned at an oblique angle on the detector and compressed with a paddle. b) Compression is applied from the upper inner to the lower outer aspect to obtain the oblique X-ray projection. c) Resulting mammogram image (MLO view) \cite{imaging_introduction_2022}.}
     \label{fig:mlo_view}
 \end{figure}
 
 
-Modern mammography units can be either analog or digital, with digital mammography now representing the most widely used and preferred technology in clinical practice \cite{ltd_mammography_2025, noauthor_mammography_nodate}. Digital systems offer significant advantages, including immediate image acquisition, enhanced image quality, and easier storage and retrieval.
+Modern mammography units can be either analog or digital, with digital mammography now representing the most widely used and preferred technology in clinical practice \cite{ltd_mammography_2025, noauthor_mammography_nodate}. Digital systems offer significant advantages over their analog counterparts, including immediate image acquisition, enhanced image quality, and easier storage and retrieval.
 
-Mammography enables the identification of breast cancers, benign tumors, and cysts before they become palpable, often detecting tumors at a much earlier stage than physical examination alone \cite{staff_what_2025}. This technique is employed both for routine screening in asymptomatic women, for diagnosing breast cancer after a lump or other symptoms are detected, and for surveillance following breast cancer diagnosis.
+These technological advancements have further strengthened the role of mammography in clinical care. The use of x-ray mammography enables the identification of breast cancers, benign tumors, and cysts before they become palpable, often detecting tumors at a much earlier stage than physical examination alone \cite{staff_what_2025}. As a result, this technique is employed not only for routine screening in asymptomatic women, but also for diagnosing breast cancer following the detection of a lump or other symptoms, as well as for ongoing surveillance after a breast cancer diagnosis.
 
 \subsection{Other modalities}
 
 \textbf{Breast Ultrasound}
 
-Ultrasound imaging is a widely used technique for breast analysis that employs high-frequency sound waves to produce real-time images. Unlike mammography, ultrasound does not use ionizing radiation, making it a safe and non-invasive option for patients of all ages. This modality is particularly valuable for evaluating palpable lumps, distinguishing between solid and cystic masses, and further characterizing lesions detected on mammography, especially in women with dense breast tissue, where mammography may be less sensitive \cite{gokhale_ultrasound_2009}. Figure~\ref{fig:breast_ultrasound} shows an example of a breast ultrasound image with a mass, a typical appearance of a suspicious lesion.
+Breast ultrasound imaging is a widely used technique for breast analysis that uses a handheld device called a transducer\footnote{A device that produces sound waves that bounce off body tissues, receives the echoes, and transforms the signals into pictures.} to produce real-time images of the internal breast tissue by emitting high-frequency sound waves (Figure~\ref{fig:breast_ultrasound_comparison}).
 
+Unlike mammography, ultrasound does not use ionizing radiation, making it a safe and non-invasive option for patients of all ages. This modality is particularly valuable for evaluating palpable lumps, distinguishing between solid and cystic masses, and further characterizing lesions detected on mammography, especially in women with dense breast tissue, where mammography may be less sensitive \cite{gokhale_ultrasound_2009}.
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.5\linewidth]{reports//assets/ultrasound.jpg}
-    \caption{Breast ultrasound of a 60-year-old woman showing an irregular, dark gray spiculated mass, highly suspicious for cancer \cite{noauthor_breast_nodate}.}
-    \label{fig:breast_ultrasound}
+However, it is important to take into consideration that the accuracy and quality of ultrasound examinations are highly dependent on the skill and experience of the operator. In addition, compared to mammography, ultrasound is less effective at distinguishing between benign and malignant lesions, which may result in more follow-up procedures.
+
+\begin{figure}[h!]
+	\centering
+	\begin{subfigure}[c]{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{reports/assets/breast_ultrasound.jpg}
+            \caption{}
+		\label{fig:breast_ultrasound}
+	\end{subfigure}
+	\begin{subfigure}[c]{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{reports/assets/ultrasound.jpg}
+            \caption{}
+		\label{fig:ultrasound}
+	\end{subfigure}
+	\caption[Breast ultrasound procedure and example]{(a) Breast ultrasound representation \cite{macauley_start--finish_2022}. (b) Breast ultrasound example showing an irregular, dark gray spiculated mass, highly suspicious for cancer \cite{noauthor_breast_nodate}.}
+\label{fig:breast_ultrasound_comparison}
 \end{figure}
 
 \textbf{Magnetic Resonance Imaging (MRI)}
@@ -497,16 +515,56 @@ Breast MRI is particularly valuable for women at high risk of developing breast 
 Despite these advantages, MRI is more expensive and less widely available than mammography or ultrasound. Its high sensitivity can sometimes lead to more false positives, resulting in additional follow-up imaging. Furthermore, accurate interpretation of breast MRI requires specialized training and experience \cite{noauthor_technical_nodate}.
 
 
-\begin{figure}[h!]
+\begin{figure}
     \centering
     \includegraphics[width=0.5\linewidth]{reports//assets/breast_mri.jpg}
-    \caption{Illustration of a breast MRI procedure. The patient lies prone on a dedicated breast coil, allowing for optimal imaging of the breast tissue \cite{nih_definition_2011}.}
+    \caption[Breast MRI procedure]{Illustration of a breast MRI procedure. The patient lies prone on a dedicated breast coil, allowing for optimal imaging of the breast tissue \cite{nih_definition_2011}.}
     \label{fig:breast_mri}
 \end{figure}
 
 
-
 \section{Cancer Screening}
+
+Cancer screening is the process of using tests to look for cancer or pre-cancerous changes in people, mainly targeting those who do not have any symptoms of the disease. The purpose is to detect cancer at an early stage, when treatment is more likely to be successful and before symptoms appear \cite{noauthor_cancer_2010}.
+
+There are different kinds of screening tests that can be used in the process depending on the subject’s needs. These may include physical examinations and clinical history reviews, laboratory tests, imaging procedures, and genetic tests \cite{noauthor_cancer_2010}. In the context of breast cancer, x-ray mammography is the gold-standard screening tool. As mentioned earlier, it is a widely available, noninvasive, and cost-effective technique, and it has been proven to detect tumors up to two years before they become palpable or cause symptoms \cite{cancer_que_2023}.
+
+\subsection{General process description}
+
+The general process of breast screening is very similar worldwide in its main steps, but certain aspects, such as the starting age, screening frequency, and technology used may vary from country to country. In Spain, the breast cancer screening program began in 1990 and is performed only in women between 50 and 69 years old, using biennial\footnote{Every two years} mammograms \cite{noauthor_ministerio_nodate}. The following steps are the core steps of breast cancer screening:
+
+\begin{enumerate}
+    \item \textbf{Invitation}: Eligible women (based on age and sometimes risk factors) are invited to participate, either through organized national programs or opportunistically via healthcare providers.
+    \item \textbf{Screening test}: The screening test is performed, typically a mammogram, which may be supplemented by other tests. For example, in Spain, an ultrasound is also recommended \cite{noauthor_map_nodate}.
+    \item \textbf{Image review}: Radiologists review the mammograms for signs of cancer, such as masses or microcalcifications.
+    \item \textbf{Results notification}: Women are informed of their results. Those with abnormal findings are called back for additional tests.
+    \item \textbf{Follow-up}: f abnormalities are detected, further diagnostic procedures, such as additional imaging or biopsy, are conducted to confirm or rule out cancer.
+\end{enumerate}
+
+
+At this stage, non-invasive techniques, such as those investigated in this work, can contribute to improved diagnostic outcomes and offer more detailed insights. Specifically, in the context of molecular subtype classification, having such a tool would provide additional information for cases with abnormal findings or confirmed cancers. This could lead to a better prognosis and help guide clinical decision-making, potentially reducing the need for further invasive procedures like biopsies.
+
+\subsection{Biopsy Techniques}
+
+When imaging or other screening tests detect abnormalities suggestive of breast cancer, a biopsy is typically required to obtain a definitive diagnosis. A breast biopsy involves removing a small sample of tissue from the suspicious area, which is then examined under a microscope by a pathologist \cite{DefinitionBiopsyNCI2011}. This step is crucial not only for confirming the presence of cancer but also for determining its type, grade, and increasingly, its molecular characteristics.
+
+\textbf{Classification}
+
+Several biopsy techniques are commonly used for the diagnosis and characterization of breast lesions, including:
+
+\begin{itemize}
+    \item \textbf{Fine Needle Aspiration (FNA)}: A minimally invasive procedure that uses a thin, hollow needle to extract cells or fluid from a suspicious area. It is often performed when the lesion is likely to be a cyst\footnote{A fluid-filled sac}. FNA is quick, cost-effective, and generally well-tolerated, offering high diagnostic accuracy when performed correctly. However, it may provide limited information about tissue architecture and can sometimes yield inconclusive results, necessitating further evaluation with a core needle or surgical biopsy \cite{noauthor_fine_nodate, silva_breast_2023}.
+    
+    \item \textbf{Core Needle Biopsy (CNB)}: This technique employs a larger, hollow needle to obtain small cylinders (cores) of tissue, usually under image guidance \cite{CoreNeedleBiopsy, silva_breast_2023}. CNB provides a more substantial tissue sample, enabling accurate histological diagnosis and molecular marker assessment-essential for molecular subtyping. It is considered the standard diagnostic approach due to its high concordance with surgical specimens for key biomarkers such as ER, PR, HER2, and Ki67 \cite{jeong_analysis_2020}.
+    
+    \item \textbf{Vacuum-Assisted Biopsy (VAB)}: VAB uses a vacuum-powered device to collect multiple tissue samples through a single insertion, typically guided by stereotactic or ultrasound imaging. It is particularly effective for sampling microcalcifications or small lesions detected via mammography and yields larger tissue samples, thereby reducing sampling error. This method is reliable, well-tolerated, and can sometimes eliminate the need for surgical biopsy, especially for benign lesions \cite{park_vacuum-assisted_2014}.
+    
+    \item \textbf{Surgical Biopsy}: When needle-based techniques are inconclusive or not feasible, a surgical biopsy may be performed to excise part or all of the suspicious tissue. While it provides the most comprehensive tissue sample, it is also more invasive and costly, and is generally reserved for cases where less invasive methods fail to yield a definitive diagnosis \cite{silva_breast_2023}.
+\end{itemize}
+
+The selection of a biopsy technique depends on factors such as lesion size, location, and imaging characteristics, as well as patient-specific considerations. Importantly, the tissue obtained through these procedures is not only used to confirm malignancy, but also to conduct immunohistochemical and molecular analyses. These analyses are essential for determining the molecular subtype of breast cancer, which, as discussed previously, plays a key role in guiding prognosis and therapeutic decision-making.
+
+\textbf{Limitations}
 
 
 
@@ -522,7 +580,7 @@ This section explores the modern definitions and structures of AI models, as wel
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.5\linewidth]{reports//assets/ai.png}
-    \caption{Complete}
+    \caption[AI overview]{Complete}
     \label{fig:enter-label}
 \end{figure}
 
@@ -554,7 +612,7 @@ This section documents the materials and processes carried out for this study. F
 The Chinese Mammography Database (CMMD) is a public dataset developed by Cai et al. (2023) \cite{cai_online_2023} and hosted on The Cancer Imaging Archive (TCIA)\footnote{\url{https://www.cancerimagingarchive.net/collection/cmmd/}}. This dataset includes a total of 3,712 mammograms from 1,775 Chinese patients, in craniocaudal (CC) and mediolateral oblique (MLO) views, collected between July 2012 and January 2016. CMMD is divided into two subsets: CMMD1, which contains studies with basic clinical information, and CMMD2, which also includes molecular subtype annotations. The latter is the main basis for this research, as it is the only public and freely accessible subset that provides such molecular labels explicitly. Table \ref{tab:cmmd_features} details the main characteristics of each subset.
 
 \begin{table}
-        \caption{Main characteristics of the CMMD subsets}
+        \caption[CMMD subsets characteristics]{Main characteristics of the CMMD subsets}
 	\centering
 	\begin{tabular}{lccccc}
 		\toprule
@@ -571,14 +629,14 @@ The Chinese Mammography Database (CMMD) is a public dataset developed by Cai et 
 \end{table}
 
 
-\subsection{General Description and Analysis}
+\subsection{General Description}
 
 As mentioned above, the focus of this study is on the CMMD2 subset. For its composition, only malignant cases with complete immunohistochemical marker information and a diagnosis of invasive carcinoma were selected, as detailed in the exclusion criteria shown in Figure \ref{fig:cmmd_criteria}. After applying these criteria, the final sample consisted of 1,498 images corresponding to 749 patients.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.8\linewidth]{reports//assets/cmmd_criteria.png}
-	\caption{CMMD's inclusion and exclusion criteria \cite{cai_online_2023}.}
+	\caption[CMMD's inclusion and exclusion criteria]{CMMD's inclusion and exclusion criteria \cite{cai_online_2023}.}
 	\label{fig:cmmd_criteria}
 \end{figure}
 
@@ -591,12 +649,12 @@ The mammography images were collected using the \textbf{GE Senographe DS} mammog
 The main format of the images in the dataset is DICOM (Digital Imaging and Communications in Medicine), the standard in medical imaging, as it allows clinical metadata to be stored alongside the image and enables interoperability between equipment from different manufacturers as well as interaction between different information systems in hospitals and healthcare centers.
 
 \newpage
-\textbf{Metadata}
+\subsection{Metadata}
 
 For each patient, the dataset provides a CSV\footnote{A plain text file that stores data in tabular form, where each line represents a row and each value in the row is separated by a comma} (Comma Separated Values) file with additional information to the obtained images, including age, laterality, type of abnormality, classification, and in the case of CMMD2, also the molecular subtype of the tumor. Table \ref{tab:cmmd2_metadata} describes these data in detail.
 
 \begin{table}[h]
-	\caption{Description of metadata variables present in the CMMD dataset.}
+	\caption[CMMD2 metadata description]{Description of metadata variables present in the CMMD dataset.}
 	\centering
 	\begin{tabular}{>{\bfseries}l p{5cm} p{6cm}}
 		\toprule
@@ -633,7 +691,7 @@ The age distribution of patients follows an approximately normal distribution wi
 		\caption{Age and subtype distribution}
 		\label{fig:age_subtype}
 	\end{subfigure}
-	\caption{(a) Overall age distribution of patients and (b) distribution by cancer subtype (CMMD2).}
+	\caption[CMMD2 Age distribution]{(a) Overall age distribution of patients and (b) distribution by cancer subtype (CMMD2).}
 	\label{fig:age_dist_all}
 \end{figure}
 
@@ -657,7 +715,7 @@ The class imbalance is also reflected in the total number of images available pe
 		\caption{Subtype distribution (pie chart)}
 		\label{fig:subtype_pie}
 	\end{subfigure}
-	\caption{Subtype distribution of patients (CMMD2)}
+	\caption[CMMD2 molecular subtypes distribution]{Subtype distribution of patients (CMMD2)}
 	\label{fig:subtype_charts}
 \end{figure}
 
@@ -665,7 +723,7 @@ The class imbalance is also reflected in the total number of images available pe
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=1\linewidth]{reports//assets/images_examples.png}
-	\caption{Example of mammography images of the CCMD2 dataset. Top row represent a CC view whereas bottom row illustrated a MLO view. Each column depicted one subtype of cancer.}
+	\caption[CMMD2 mammography images examples]{Example of mammography images of the CCMD2 dataset. Top row represent a CC view whereas bottom row illustrated a MLO view. Each column depicted one subtype of cancer.}
 	\label{fig:cmmd-examples}
 \end{figure}
 
