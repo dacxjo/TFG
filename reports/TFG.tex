@@ -27,6 +27,7 @@
 \usepackage{subcaption}
 \usepackage{enumitem}
 \setlist[itemize]{itemsep=4pt, parsep=2pt, topsep=2pt, leftmargin=*}
+\usepackage{chronology}
 
 
 
@@ -233,7 +234,7 @@ In order to address the aforementioned objectives of the project, several tasks 
 \begin{enumerate}
 	\item \textbf{Medical context}: Review current scientific literature on breast cancer to contextualize its clinical and epidemiological relevance.
 	\item \textbf{Problem intuition}: Analyze the importance of molecular characterization in breast cancer, highlighting its advantages, limitations, and current challenges.
-	\item \textbf{Previous works}: Examine recent advances in AI and deep learning for breast cancer characterization and diagnosis, comparing approaches and results reported in the literature.
+	\item \textbf{Previous works}: Examine recent advances in AI and DL for breast cancer characterization and diagnosis, comparing approaches and results reported in the literature.
 \end{enumerate}
 
 \textbf{Implementation}
@@ -538,7 +539,7 @@ The general process of breast screening is very similar worldwide in its main st
     \item \textbf{Screening test}: The screening test is performed, typically a mammogram, which may be supplemented by other tests. For example, in Spain, an ultrasound is also recommended \cite{noauthor_map_nodate}.
     \item \textbf{Image review}: Radiologists review the mammograms for signs of cancer, such as masses or microcalcifications.
     \item \textbf{Results notification}: Women are informed of their results. Those with abnormal findings are called back for additional tests.
-    \item \textbf{Follow-up}: f abnormalities are detected, further diagnostic procedures, such as additional imaging or biopsy, are conducted to confirm or rule out cancer.
+    \item \textbf{Follow-up}: If abnormalities are detected, further diagnostic procedures, such as additional imaging or biopsy, are conducted to confirm or rule out cancer.
 \end{enumerate}
 
 
@@ -568,36 +569,222 @@ The selection of a biopsy technique depends on factors such as lesion size, loca
 
 
 
-
-\section{Artificial Intelligence in Medical Imaging}
-
 \chapter{Technological Review}
 
 This section explores the modern definitions and structures of AI models, as well as their use in modern medicine and specifically in medical imaging.
 
 \section{Artificial Intelligence}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.5\linewidth]{reports//assets/ai.png}
-    \caption[AI overview]{Complete}
-    \label{fig:enter-label}
+Artificial Intelligence (AI) refers to a collection of technologies that enable computers and machines to simulate aspects of human intelligence, such as learning from experience, understanding complex information, solving problems, and making decisions with varying degrees of creativity and autonomy \cite{colestrykerWhatArtificialIntelligence2024}. The conceptual foundations of AI emerged in the 1940s and 1950s, when early computing pioneers began exploring the possibility of creating machines capable of simulating human intelligence. Alan Turing's seminal contributions, particularly his work on the so-called \textit{Turing Test}\footnote{A test designed to evaluate the capacity of a machine to simulate human behavior.} and his influential paper, Computing Machinery and Intelligence (1950) \cite{turing_icomputing_1950}, established the theoretical basis for this emerging field. AI was formally recognized as a distinct area of study in 1956, when the term \textit{“artificial intelligence”} was coined at the Dartmouth Conference, organized by John McCarthy, Marvin Minsky, Nathaniel Rochester, and Claude Shannon \cite{filipsson_evolution_2024}.
+
+Figure \ref{fig:ai_timeline} summarizes the evolution of AI over the decades and highlights key milestones in its development.
+
+\begin{figure}[h!]
+\centering
+\begin{chronology}*[5]{1950}{2025}{\textwidth}
+  \event{1950}{\footnotesize Turing's test proposal}
+  \event{1956}{\footnotesize Dartmouth: term \textit{AI} coined}
+  \event{1965}{\footnotesize Expert systems}
+  \event[1974]{1980}{\footnotesize First AI Winter}
+  \event{1986}{\footnotesize Backpropagation introduced}
+  \event[1987]{1993}{\footnotesize Second AI Winter}
+  \event{2012}{\footnotesize DL revolution}
+  \event{2020}{\footnotesize Vision Transformers}
+\end{chronology}
+\caption{Condensed timeline of key AI milestones}
+\label{fig:ai_timeline}
 \end{figure}
 
-\subsection{From Classical AI to Deep Learning}
-\subsection{Timeline}
+
+\subsection{Classical AI}
+
+The early decades of AI were characterized by approaches based on explicit programming rules and logic-based reasoning systems. Using these methods, researchers developed various rule-based systems to simulate human problem-solving, known as expert systems.
+
+Two notable examples are Dendral and Mycin. Dendral was an expert system for chemical analysis that could infer molecular structures from mass spectrometry data, while Mycin was designed to diagnose bacterial infections and recommend appropriate treatments. These pioneering systems demonstrated the potential of AI in medicine and scientific discovery as early as the 1960s and 1970s \cite{filipsson_evolution_2024}.
+
+However, the limitations of rule-based approaches soon became evident, particularly their inability to adapt to new information or process complex, unstructured data. These challenges, coupled with overly optimistic expectations and limited computational resources, led to periods of stagnation and reduced investment in AI research, commonly referred to as the AI winters. Despite these setbacks, the field experienced a resurgence with the growing availability of digital data and the emergence of new paradigms. 
+
+\subsection{Machine Learning}
+
+ML is a branch of AI that empowers computers to learn from data and previous experiences, enabling them to identify patterns, draw inferences, and make predictions without the need for explicit, rule-based programming \cite{noauthor_what_nodate}. The popularity of ML has soared in recent years, fueled by the exponential growth of big data, advances in computational power, and the widespread availability of large, annotated datasets.
+
+ML encompasses a variety of learning paradigms, each describing how models are trained and how they extract knowledge from data. The principal approaches include:
+
+\begin{itemize}
+\item \textbf{Supervised Learning}: In this paradigm, models are trained using labeled datasets, where the correct output (label) is provided for each input example \cite{jiang_supervised_2020}. 
+\item \textbf{Unsupervised Learning}: Here, models are trained on unlabeled data, seeking to uncover hidden patterns or intrinsic structures within the dataset \cite{noauthor_unsupervised_nodate}. 
+\item \textbf{Reinforcement Learning}: In this approach, models learn to make sequences of decisions by interacting with an environment. They receive feedback in the form of rewards or penalties, gradually learning optimal strategies \cite{ghasemi_introduction_2024}.
+\end{itemize}
+
+The adoption of machine learning has had a transformative impact across numerous industries. In healthcare, ML models now assist in tasks ranging from automated medical image analysis to personalized treatment recommendations. In finance, ML enables real-time fraud detection and risk assessment \cite{malik_credit_2024}. In retail and logistics, ML optimizes supply chains, forecasts demand, and personalizes product recommendations.
+
+The rapid advancement of ML applications, combined with the explosion of available data and improvements in hardware (such as GPUs), paved the way for the next major leap in AI: deep learning (DL).
+
+
+\subsection{Deep Learning}
+
+DL is a specialized subset of Machine Learning (ML) that utilizes artificial neural networks composed of multiple layers to automatically extract complex features from large datasets. This approach has enabled unprecedented performance in fields such as image analysis, speech recognition, and natural language processing \cite{holdsworthWhatDeepLearning2024}.
+
+Unlike traditional ML methods, which often rely on manual feature engineering and are best suited for structured, moderate-sized datasets, DL models excel at processing vast amounts of unstructured data, including images, audio, and text. These models are capable of autonomously learning hierarchical representations directly from raw inputs, significantly reducing the need for human intervention and enhancing both scalability and accuracy \cite{holdsworthWhatDeepLearning2024}. Figure~\ref{fig:ai_overview} illustrates how Deep Learning fits within the broader context of Artificial Intelligence and Machine Learning.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\linewidth]{reports//assets/ai.png}
+    \caption[AI overview]{Overview of AI subsets \cite{nasaWhatArtificialIntelligence}.}
+    \label{fig:ai_overview}
+\end{figure}
+
+
+\subsection{Deep Learning in Medical Imaging}
+
+The advent of DL techniques has profoundly transformed the field of medical imaging, enabling highly accurate analysis of complex visual data across a broad spectrum of clinical applications, including:
+
+\begin{itemize}
+    \item \textbf{Image classification and detection}: DL models are trained to identify and classify abnormalities in radiological images such as X-rays, MRI, or mammograms, often achieving expert-level performance.
+    \item \textbf{Segmentation}: DL architectures facilitate the precise delineation of anatomical structures and pathological regions, which is essential for treatment planning, diagnosis, and disease monitoring.
+    \item \textbf{Image enhancement and generation}: DL is employed to improve image quality (e.g., denoising, super-resolution) and to generate synthetic data for augmentation or cross-modality image synthesis.
+\end{itemize}
+
+These advancements have been largely driven by the success of Convolutional Neural Networks (CNNs), which have become the foundation of most state-of-the-art models in medical image analysis. CNN-based models are currently being actively explored for the classification of breast cancer molecular subtypes using mammography images, as recent studies have demonstrated their potential for this challenging task\cite{mota_breast_2024, ben_rabah_multimodal_2025}. For this reason, CNNs, particularly ResNet101, serve as the baseline architecture in this study. A detailed review of CNNs will be provided in the following section.
+
+
 
 \section{Convolutional Neural Networks}
-\subsection{General Principles}
-\subsection{Historical Architectures and Variants}
-\subsection{Limitations in Mammography}
 
-\section{Vision Transformers}
+A Convolutional Neural Network (CNN) is a specialized type of deep learning model based on layers, designed to automatically learn and extract features from data, particularly images, by applying mathematical operations called convolutions. 
+
+CNNs were first introduced by LeCun et al. \cite{lecun_gradient-based_1998} in their seminal work on LeNet (Figure \ref{fig:lenet}), an architecture developed for digit recognition. However, CNNs gained widespread popularity only after Krizhevsky et al. achieved a breakthrough in the 2012 ImageNet Large Scale Visual Recognition Challenge with their architecture, AlexNet \cite{NIPS2012_c399862d}.
+
+The key innovation of CNNs lies in their ability to learn hierarchical features directly from raw data, reducing the need for manual feature engineering and enabling high performance across a variety of computer vision applications.
+
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\linewidth]{reports//assets/lenet.jpg}
+    \caption[LeNet CNN]{LeNet, considered the first CNN architecture for digit recognition}
+    \label{fig:lenet}
+\end{figure}
+
+
+\subsection{Core Principles}
+
+\textbf{Convolutional Layers}
+
+A convolutional layer is the primary building block of a CNN. It applies a set of filters (or kernels) to the input data (image) by sliding each filter across the width and height while computing the dot product between the filter and the local region covered. This operation is known as convolution. The purpose of this operation is to generate a feature map, which highlights patterns or specific features of the input, like edges or textures \cite{noauthor_what_2021}. In a large CNN, this feature map is then propagated to the next layer to repeat the process and extract more complex features. Figure \ref{fig:convolution_feature_map} illustrates the convolution operation and a feature map example.
+
+\begin{figure}[h!]
+	\centering
+	\begin{subfigure}[c]{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{reports/assets/convolution.png}
+            \caption{}
+		\label{fig:convolution}
+	\end{subfigure}
+	\begin{subfigure}[c]{0.25\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{reports/assets/feature_maps_resnet.png}
+            \caption{}
+		\label{fig:feature_map_conv}
+	\end{subfigure}
+	\caption[Convolution and feature map]{(a) Illustration of the convolution operation \cite{noauthor_what_2021}. (b) Breast feature maps extracted from the first convolutional layer of Resnet101.}
+\label{fig:convolution_feature_map}
+\end{figure}
+
+\textbf{Activation Functions}
+
+Activation functions are mathematical functions used within neural networks. These functions are used to decide whether a neuron is activated or not, but most importantly, they introduce non-linearity into the network, enabling it to learn complex relationships beyond simple linear mappings. In simpler words, they help the network to understand more complex patterns, not just straight-line relationships \cite{langActivationFunctionsNeural2024}. Generally, activation functions are applied after the convolution operation to obtain the feature map. There are many activations functions, but the most used for CNN is the rectified linear unit (ReLU) due to its simplicity, computational efficiency and mitigation of the vanishing gradient problem \footnote{The difficulty of training deep learning networks due to gradients becoming very small as they propagate through many layers.}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\linewidth]{reports//assets/activations_functions.png}
+    \caption[Popular activation functions]{Popular activations functions used in CNN \cite{wachtelUnderstandingActivationFunctions2021}.}
+    \label{fig:activations-functions}
+\end{figure}
+
+\textbf{Pooling Layers}
+
+Pooling layers reduce the spatial dimensions of feature maps. This not only decreases computational complexity but also helps control overfitting\footnote{A common problem in machine learning where a model learns the training data too closely, rather than capturing patterns that generalize to new, unseen data.} \cite{brownlee_gentle_2019}. Unlike convolutional layers, pooling layers do not perform convolutions; instead, they apply a pooling operation to each region of the feature map. The two most popular pooling operations are max pooling, which selects the maximum value in each region and average pooling, which computes the mean value of the region (Figure \ref{fig:pooling_operations}). Pooling is typically applied after activation functions and is often repeated throughout the network. 
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1.0\linewidth]{reports//assets/pooling.png}
+    \caption[Popular pooling operations]{Max pooling and Average pooling representation \cite{SkinLesionClassification}.}
+    \label{fig:pooling_operations}
+\end{figure}
+
+\textbf{Fully Connected Layer}
+
+Fully connected layers, also known as dense layers, are typically located near the end of a CNN. In these layers, every neuron is connected to every neuron in the previous layer, allowing the network to combine the features extracted by earlier convolutional and pooling layers into a global representation. Before entering the fully connected layers, the multidimensional feature maps are flattened into a one-dimensional vector, which serves as the input for these dense layers. This transformation enables the network to map the extracted features to the desired output, such as class probabilities \cite{noauthor_fully_nodate}. Figure \ref{fig:fc_layers} illustrates a neural network with several fully connected layers.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.75\linewidth]{reports//assets/fc_network.png}
+    \caption[Fully connected layers]{Neural network with three fully connected layers and three outputs \cite{bergmann_what_2024}.}
+    \label{fig:fc_layers}
+\end{figure}
+
+With all this building blocks, CNN are constructed. Once a network is defined, it goes through the process of training, which involves the following steps \cite{bergmann_what_2024}:
+
+\begin{enumerate}
+    \item \textbf{Forward pass}: The input data passes through the network, layer by layer, to produce an output prediction.
+    \item \textbf{Loss function calculation}: The difference between the predicted output and the true label is measured using a loss function.
+    \item  \textbf{Backpropagation}: The network computes gradients of the loss with respect to each parameter, propagating the error backward through the layers.
+    \item \textbf{Gradient descent}: The network updates its parameters (weights and biases) using the computed gradients to minimize the loss.
+\end{enumerate}
+
+After training, the network is ready to make predictions on new, unseen data. Figure \ref{fig:cnn_breast} shows an example of a complete CNN architecture for breast cancer prediction.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.75\linewidth]{reports//assets/cnn_breast.png}
+    \caption[Breast cancer CNN]{CNN for breast cancer prediction \cite{jaamour_divide_2023}.}
+    \label{fig:cnn_breast}
+\end{figure}
+
+\subsection{Main Architectures}
+
+\textbf{VGGNet (VGG16/VGG19)}
+
+Symonyan et al. (2015) introduced VGGNets \cite{simonyanVeryDeepConvolutional}. Renowned for their straightforward design and depth, they employ solely 3×3 convolutions and can have up to 19 layers. They are extensively utilized as feature extractors and serve as a fundamental benchmark for transfer learning in both medical and general image applications.
+
+\textbf{ResNet}
+
+He et al. (2015) \cite{he_deep_2015} presented Residual Networks, or ResNets, as a solution for training very deep neural networks with over 50 layers, which helps address the problem of vanishing gradients. This is achieved through the implementation of residual or skip connections between layers. ResNet is the default choice for many image analysis tasks due to its robustness and ease of training.
+
+\textbf{MobileNet}
+
+As introduced by Howard et al. (2017), MobileNet was specifically engineered for mobile and embedded systems. By utilizing depthwise separable convolutions\footnote{A different kind of convolution that splits the process in two steps: filtering each input channel and then combining them with a 1×1 convolution.}, it effectively decreases computational requirements and model size, rendering it highly suitable for real-time and resource-limited applications.
+
+As previously stated, our study utilizes ResNet-101 as the baseline model. This architecture, comprised of 101 layers interspersed with residual connections, proves highly adept at managing intricate tasks. Figure \ref{fig:resnet_101} illustrate an overview of its structure.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.75\linewidth]{reports//assets/resnet101.jpg}
+    \caption[ResNet-101 Architecture]{ResNet-101 Architecture.}
+    \label{fig:resnet_101}
+\end{figure}
+
+
+\subsection{Limitations}
+
+CNNs offer numerous advantages and a wide range of applications; however, they also have certain limitations that deserve consideration:
+
+\begin{itemize}
+    \item \textbf{Limited global context}: CNNs primarily focus on local features within small receptive fields, which limits their ability to capture long-range dependencies or global spatial relationships across an image. This can be a drawback in medical imaging, where understanding the broader anatomical context is often crucial.
+    
+    \item \textbf{Rigid inductive bias}: The architectural design of CNNs imposes strong assumptions of locality and translation invariance. While this is effective for many visual tasks, it can restrict the model’s flexibility to learn more abstract or non-local patterns that may be relevant in heterogeneous medical images.
+    
+    \item \textbf{Generalization across diverse data}: CNNs often struggle to generalize when applied to data from different hospitals, imaging devices, or patient populations, due to domain shifts and variability in medical imaging protocols. This lack of robustness can hinder their reliability in real-world clinical practice.
+\end{itemize}
+
+Recent advances in Transformer-based models offer promising solutions to some of these limitations by enabling better modeling of global context and improving generalization, which will be discussed in the following section.
+
+\section{Transformer-Based models}
 \subsection{Brief History}
 \subsection{Principles of Self-Attention}
-\subsection{Vision Transformer (ViT)}
-\subsection{Shifted-Window Transformer (Swin)}
-\subsection{Multi-Axis Vision Transformer (MaxViT)}
+\subsection{Vision Transformer}
+\subsection{Shifted-Window Transformer}
+\subsection{Multi-Axis Vision Transformer}
 
 \section{Training and Evaluation Techniques}
 \subsection{Transfer Learning}
