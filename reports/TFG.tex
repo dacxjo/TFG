@@ -204,14 +204,14 @@ Recent research has explored breast cancer molecular subtype classification from
 
 This study proposes a unimodal approach based exclusively on the inference based on mammograms from the public CMMD dataset (The Chinese Mammography Database) \cite{cai_online_2023}, comparing the performance of state-of-the-art Transformer architectures including Vision Transformer (ViT), Swin Transformer (Swin), and Multi-Axis Vision Transformer (MaxViT) against a traditional ResNet-101 baseline. While multimodal models typically achieve superior results by integrating complementary clinical data, a unimodal approach focused exclusively on mammographic images offers significant practical advantages, especially in resource-limited settings or when clinical data standardization is unavailable. Recent studies have demonstrated that Transformers-based models outperform convolutional neural networks (CNN) in accuracy and robustness for medical image classification tasks due to their self-attention mechanisms, which enable them to capture global spatial relationships across images \cite{mauricio_comparing_2023}. Based on these architectural advantages, this study hypothesizes that Transformer architectures will achieve superior performance in molecular subtype classification, even under a unimodal approach.
 
-Ultimately, this work seeks to contribute to the development of non-invasive diagnostic tools through systematic evaluation of vision transformer models, advancing automated, accessible, and efficient molecular characterization of breast cancer. This approach is particularly valuable in clinical scenarios where tissue biopsy is not immediately feasible, potentially improving diagnostic equity and reducing time to treatment initiation.
+Ultimately, this work seeks to contribute to the development of non-invasive diagnostic tools through systematic evaluation of transformer-based models, advancing automated, accessible, and efficient molecular characterization of breast cancer. This approach is particularly valuable in clinical scenarios where tissue biopsy is not immediately feasible, potentially improving diagnostic equity and reducing time to treatment initiation.
 
 
 \section{Planning}
 
 \subsection{Objectives}
 
-The \textbf{primary objective} of this study is to systematically compare vision Transformer architectures against a CNN baseline for mammography-based molecular subtype classification, establishing performance benchmarks for non-invasive breast cancer characterization.
+The \textbf{primary objective} of this study is to systematically compare Transformer-based architectures against a CNN baseline for mammography-based molecular subtype classification, establishing performance benchmarks for non-invasive breast cancer characterization.
 
 To achieve this primary objective, the following \textbf{secondary objectives} are proposed:
 
@@ -394,7 +394,7 @@ Sørli et al. reinforced these findings. They replicated the research in differe
 	\label{fig:sorlie-dandrogram}
 \end{figure}
 
-Following these studies, efforts focused on translating the findings into clinical practice. Since the technique used for classification at the time (DNA microarrays) was expensive, complex, and not accessible to most hospitals, an alternative was sought. It was at the St. Gallen international consensus meetings that classification criteria based on immunohistochemical (IHC) markers were proposed, formalizing the subtypes using a combination of the following hormone receptors \cite{lips_breast_2013}:
+Following these studies, efforts focused on translating the findings into clinical practice. Since the technique used for classification at the time (DNA microarrays) was expensive, complex, and not accessible to most hospitals, an alternative was sought. It was at the St. Gallen international consensus meetings that classification criteria based on immunohistochemical (IHC) markers\footnote{Specific proteins or antigens present in cells or tissues that can be detected using antibodies in a laboratory technique called immunohistochemistry.} were proposed, formalizing the subtypes using a combination of the following hormone receptors \cite{lips_breast_2013}:
 
 \begin{itemize}
 	\item \textbf{Estrogen (ER) and Progesterone (PR) Receptors}: Define the tumor’s hormonal dependence, which can affect its growth. Tumors with these receptors respond well to hormonal therapy.
@@ -462,15 +462,15 @@ Each breast is typically imaged using two standard views to ensure tissue visual
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.6\linewidth]{reports//assets/cc_view.jpg}
-    \caption[CC view acquisition procedure]{Illustration of CC view acquisition: a) The breast is positioned horizontally on the detector and compressed with a paddle. b) Top-down compression is applied to obtain the X-ray projection. 
-    c) Resulting mammogram image (CC view) \cite{imaging_introduction_2022}. }
+    \caption[CC view acquisition procedure]{Illustration of CC view acquisition: (a) The breast is positioned horizontally on the detector and compressed with a paddle. (b) Top-down compression is applied to obtain the X-ray projection. 
+    (c) Resulting mammogram image (CC view) \cite{imaging_introduction_2022}. }
     \label{fig:cc_view}
 \end{figure}
 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.6\linewidth]{reports//assets/mlo_view.jpg}
-    \caption[MLO view acquisition procedure]{Illustration of MLO view acquisition: a) The breast is positioned at an oblique angle on the detector and compressed with a paddle. b) Compression is applied from the upper inner to the lower outer aspect to obtain the oblique X-ray projection. c) Resulting mammogram image (MLO view) \cite{imaging_introduction_2022}.}
+    \caption[MLO view acquisition procedure]{Illustration of MLO view acquisition: (a) The breast is positioned at an oblique angle on the detector and compressed with a paddle. (b) Compression is applied from the upper inner to the lower outer aspect to obtain the oblique X-ray projection. c) Resulting mammogram image (MLO view) \cite{imaging_introduction_2022}.}
     \label{fig:mlo_view}
 \end{figure}
 
@@ -535,7 +535,7 @@ There are different kinds of screening tests that can be used in the process dep
 The general process of breast screening is very similar worldwide in its main steps, but certain aspects, such as the starting age, screening frequency, and technology used may vary from country to country. In Spain, the breast cancer screening program began in 1990 and is performed only in women between 50 and 69 years old, using biennial\footnote{Every two years} mammograms \cite{noauthor_ministerio_nodate}. The following steps are the core steps of breast cancer screening:
 
 \begin{enumerate}
-    \item \textbf{Invitation}: Eligible women (based on age and sometimes risk factors) are invited to participate, either through organized national programs or opportunistically via healthcare providers.
+    \item \textbf{Invitation}: Eligible women (based on age and sometimes risk factors) are invited to participate, either through organized national programs or through healthcare providers.
     \item \textbf{Screening test}: The screening test is performed, typically a mammogram, which may be supplemented by other tests. For example, in Spain, an ultrasound is also recommended \cite{noauthor_map_nodate}.
     \item \textbf{Image review}: Radiologists review the mammograms for signs of cancer, such as masses or microcalcifications.
     \item \textbf{Results notification}: Women are informed of their results. Those with abnormal findings are called back for additional tests.
@@ -554,19 +554,26 @@ When imaging or other screening tests detect abnormalities suggestive of breast 
 Several biopsy techniques are commonly used for the diagnosis and characterization of breast lesions, including:
 
 \begin{itemize}
-    \item \textbf{Fine Needle Aspiration (FNA)}: A minimally invasive procedure that uses a thin, hollow needle to extract cells or fluid from a suspicious area. It is often performed when the lesion is likely to be a cyst\footnote{A fluid-filled sac}. FNA is quick, cost-effective, and generally well-tolerated, offering high diagnostic accuracy when performed correctly. However, it may provide limited information about tissue architecture and can sometimes yield inconclusive results, necessitating further evaluation with a core needle or surgical biopsy \cite{noauthor_fine_nodate, silva_breast_2023}.
+    \item \textbf{Fine Needle Aspiration (FNA)}: A minimally invasive procedure that uses a thin, hollow needle to extract cells or fluid from a suspicious area. It is often performed when the lesion is likely to be a cyst\footnote{A fluid-filled sac}. FNA is quick, cost-effective, and generally well-tolerated, offering high diagnostic accuracy when performed correctly. However, it may provide limited information about tissue structure and can sometimes yield inconclusive results, requiring further evaluation with a core needle or surgical biopsy \cite{noauthor_fine_nodate, silva_breast_2023}.
     
-    \item \textbf{Core Needle Biopsy (CNB)}: This technique employs a larger, hollow needle to obtain small cylinders (cores) of tissue, usually under image guidance \cite{CoreNeedleBiopsy, silva_breast_2023}. CNB provides a more substantial tissue sample, enabling accurate histological diagnosis and molecular marker assessment-essential for molecular subtyping. It is considered the standard diagnostic approach due to its high concordance with surgical specimens for key biomarkers such as ER, PR, HER2, and Ki67 \cite{jeong_analysis_2020}.
+    \item \textbf{Core Needle Biopsy (CNB)}: This technique employs a larger, hollow needle to obtain small cylinders (cores) of tissue, usually under image guidance \cite{CoreNeedleBiopsy, silva_breast_2023}. CNB yields a larger tissue sample, allowing for accurate histological diagnosis and molecular marker assessment, both of which are essential for molecular subtyping. It is considered the standard diagnostic approach due to its high concordance with surgical specimens for key biomarkers such as ER, PR, HER2, and Ki67 \cite{jeong_analysis_2020}.
     
-    \item \textbf{Vacuum-Assisted Biopsy (VAB)}: VAB uses a vacuum-powered device to collect multiple tissue samples through a single insertion, typically guided by stereotactic or ultrasound imaging. It is particularly effective for sampling microcalcifications or small lesions detected via mammography and yields larger tissue samples, thereby reducing sampling error. This method is reliable, well-tolerated, and can sometimes eliminate the need for surgical biopsy, especially for benign lesions \cite{park_vacuum-assisted_2014}.
+    \item \textbf{Vacuum-Assisted Biopsy (VAB)}: VAB uses a vacuum-powered device to collect multiple tissue samples through a single insertion, typically guided by stereotactic\footnote{A surgical technique or procedure that uses a three-dimensional coordinate system to precisely locate and target a specific area.} or ultrasound imaging. It is particularly effective for sampling microcalcifications or small lesions detected via mammography and yields larger tissue samples, thereby reducing sampling error. This method is reliable, well-tolerated, and can sometimes eliminate the need for surgical biopsy, especially for benign lesions \cite{park_vacuum-assisted_2014}.
     
     \item \textbf{Surgical Biopsy}: When needle-based techniques are inconclusive or not feasible, a surgical biopsy may be performed to excise part or all of the suspicious tissue. While it provides the most comprehensive tissue sample, it is also more invasive and costly, and is generally reserved for cases where less invasive methods fail to yield a definitive diagnosis \cite{silva_breast_2023}.
 \end{itemize}
 
-The selection of a biopsy technique depends on factors such as lesion size, location, and imaging characteristics, as well as patient-specific considerations. Importantly, the tissue obtained through these procedures is not only used to confirm malignancy, but also to conduct immunohistochemical and molecular analyses. These analyses are essential for determining the molecular subtype of breast cancer, which, as discussed previously, plays a key role in guiding prognosis and therapeutic decision-making.
-
 \textbf{Limitations}
 
+The choice of biopsy technique is influenced by factors such as lesion size, location, imaging characteristics, and patient-specific considerations. Although biopsy remains the gold standard for cancer diagnosis, it is associated with several significant limitations, including:
+
+\begin{itemize}
+    \item \textbf{Invasiveness}: The procedure may cause discomfort and carries a potential risk of infection or bleeding, particularly when tumors are located in hard-to-reach areas \cite{amino_pros_2024}.
+    \item \textbf{Logistical Barriers}: In resource-limited settings, a lack of trained personnel and the need for patients to travel long distances for care can hinder timely diagnosis and treatment \cite{silva_breast_2023}.
+    \item \textbf{Inconclusive Results}: If not performed by experienced personnel, biopsies can yield insufficient or non-diagnostic samples, increasing patient burden and discomfort due to the need for repeat procedures.
+\end{itemize}
+
+Given these limitations, there is a clear need for developing non-invasive diagnostic approaches. Such techniques could facilitate earlier intervention, reduce the dependence on tissue sampling, and improve access to timely and accurate diagnosis, especially in settings where biopsy is not feasible.
 
 
 \chapter{Technological Review}
@@ -575,13 +582,13 @@ This section explores the modern definitions and structures of AI models, as wel
 
 \section{Artificial Intelligence}
 
-Artificial Intelligence (AI) refers to a collection of technologies that enable computers and machines to simulate aspects of human intelligence, such as learning from experience, understanding complex information, solving problems, and making decisions with varying degrees of creativity and autonomy \cite{colestrykerWhatArtificialIntelligence2024}. The conceptual foundations of AI emerged in the 1940s and 1950s, when early computing pioneers began exploring the possibility of creating machines capable of simulating human intelligence. Alan Turing's seminal contributions, particularly his work on the so-called \textit{Turing Test}\footnote{A test designed to evaluate the capacity of a machine to simulate human behavior.} and his influential paper, Computing Machinery and Intelligence (1950) \cite{turing_icomputing_1950}, established the theoretical basis for this emerging field. AI was formally recognized as a distinct area of study in 1956, when the term \textit{“artificial intelligence”} was coined at the Dartmouth Conference, organized by John McCarthy, Marvin Minsky, Nathaniel Rochester, and Claude Shannon \cite{filipsson_evolution_2024}.
+Artificial Intelligence (AI) refers to a collection of technologies that enable computers and machines to simulate aspects of human intelligence, such as learning from experience, understanding complex information, solving problems, and making decisions with varying degrees of creativity and autonomy \cite{colestrykerWhatArtificialIntelligence2024}. The conceptual foundations of AI emerged in the 1940s and 1950s, when early computing pioneers began exploring the possibility of creating machines capable of simulating human intelligence. Alan Turing's seminal contributions, particularly his work on the so-called \textit{Turing Test}\footnote{A test designed to evaluate the capacity of a machine to simulate human behavior.} and his influential paper, “Computing Machinery and Intelligence” (1950) \cite{turing_icomputing_1950}, established the theoretical basis for this emerging field. AI was formally recognized as a distinct area of study in 1956, when the term \textit{“artificial intelligence”} was coined at the Dartmouth Conference, organized by John McCarthy, Marvin Minsky, Nathaniel Rochester, and Claude Shannon \cite{filipsson_evolution_2024}, computer science pioneers at the time.
 
 Figure \ref{fig:ai_timeline} summarizes the evolution of AI over the decades and highlights key milestones in its development.
 
 \begin{figure}[h!]
 \centering
-\begin{chronology}*[5]{1950}{2025}{\textwidth}
+\begin{chronology}*[5]{1949}{2025}{\textwidth}
   \event{1950}{\footnotesize Turing's test proposal}
   \event{1956}{\footnotesize Dartmouth: term \textit{AI} coined}
   \event{1965}{\footnotesize Expert systems}
@@ -591,24 +598,22 @@ Figure \ref{fig:ai_timeline} summarizes the evolution of AI over the decades and
   \event{2012}{\footnotesize DL revolution}
   \event{2020}{\footnotesize Vision Transformers}
 \end{chronology}
-\caption{Condensed timeline of key AI milestones}
+\caption[AI Timeline]{Condensed timeline of key AI milestones}
 \label{fig:ai_timeline}
 \end{figure}
 
 
 \subsection{Classical AI}
 
-The early decades of AI were characterized by approaches based on explicit programming rules and logic-based reasoning systems. Using these methods, researchers developed various rule-based systems to simulate human problem-solving, known as expert systems.
+The early decades of AI were characterized by approaches based on explicit programming and logical-based rules. Using these methods, researchers developed various systems to simulate human problem-solving, known as expert systems.
 
 Two notable examples are Dendral and Mycin. Dendral was an expert system for chemical analysis that could infer molecular structures from mass spectrometry data, while Mycin was designed to diagnose bacterial infections and recommend appropriate treatments. These pioneering systems demonstrated the potential of AI in medicine and scientific discovery as early as the 1960s and 1970s \cite{filipsson_evolution_2024}.
 
-However, the limitations of rule-based approaches soon became evident, particularly their inability to adapt to new information or process complex, unstructured data. These challenges, coupled with overly optimistic expectations and limited computational resources, led to periods of stagnation and reduced investment in AI research, commonly referred to as the AI winters. Despite these setbacks, the field experienced a resurgence with the growing availability of digital data and the emergence of new paradigms. 
+However, the limitations of rule-based approaches soon became evident, particularly their inability to adapt to new information or process complex, unstructured data. These challenges, coupled with overly optimistic expectations and limited computational resources, led to periods of stagnation and reduced investment in AI research, commonly referred to as the “AI winters”. Despite these setbacks, the field experienced a resurgence with the growing availability of digital data and the emergence of new paradigms. 
 
 \subsection{Machine Learning}
 
-ML is a branch of AI that empowers computers to learn from data and previous experiences, enabling them to identify patterns, draw inferences, and make predictions without the need for explicit, rule-based programming \cite{noauthor_what_nodate}. The popularity of ML has soared in recent years, fueled by the exponential growth of big data, advances in computational power, and the widespread availability of large, annotated datasets.
-
-ML encompasses a variety of learning paradigms, each describing how models are trained and how they extract knowledge from data. The principal approaches include:
+ML is a branch of AI that empowers computers to learn from data and previous experiences, enabling them to identify patterns, draw inferences, and make predictions without the need for explicit, rule-based programming \cite{noauthor_what_nodate}. The popularity of ML has soared in recent years, fueled by the exponential growth of big data, advances in computational power, and the widespread availability of large, annotated datasets. It encompasses a variety of learning paradigms, each describing how models are trained and how they extract knowledge from data. The principal approaches include:
 
 \begin{itemize}
 \item \textbf{Supervised Learning}: In this paradigm, models are trained using labeled datasets, where the correct output (label) is provided for each input example \cite{jiang_supervised_2020}. 
@@ -616,21 +621,19 @@ ML encompasses a variety of learning paradigms, each describing how models are t
 \item \textbf{Reinforcement Learning}: In this approach, models learn to make sequences of decisions by interacting with an environment. They receive feedback in the form of rewards or penalties, gradually learning optimal strategies \cite{ghasemi_introduction_2024}.
 \end{itemize}
 
-The adoption of machine learning has had a transformative impact across numerous industries. In healthcare, ML models now assist in tasks ranging from automated medical image analysis to personalized treatment recommendations. In finance, ML enables real-time fraud detection and risk assessment \cite{malik_credit_2024}. In retail and logistics, ML optimizes supply chains, forecasts demand, and personalizes product recommendations.
-
-The rapid advancement of ML applications, combined with the explosion of available data and improvements in hardware (such as GPUs), paved the way for the next major leap in AI: deep learning (DL).
+The adoption of ML has had a transformative impact across numerous industries. In healthcare, ML models now assist in tasks ranging from automated medical image analysis to personalized treatment recommendations. The rapid advancement of ML applications, combined with the explosion of available data and improvements in hardware (such as GPUs), paved the way for the next major leap in AI: deep learning (DL).
 
 
 \subsection{Deep Learning}
 
-DL is a specialized subset of Machine Learning (ML) that utilizes artificial neural networks composed of multiple layers to automatically extract complex features from large datasets. This approach has enabled unprecedented performance in fields such as image analysis, speech recognition, and natural language processing \cite{holdsworthWhatDeepLearning2024}.
+DL is a specialized subset of ML that utilizes artificial neural networks (ANN) composed of multiple layers to automatically extract complex features from large datasets. This approach has enabled unprecedented performance in fields such as image analysis, speech recognition, and natural language processing  \cite{holdsworthWhatDeepLearning2024}.
 
-Unlike traditional ML methods, which often rely on manual feature engineering and are best suited for structured, moderate-sized datasets, DL models excel at processing vast amounts of unstructured data, including images, audio, and text. These models are capable of autonomously learning hierarchical representations directly from raw inputs, significantly reducing the need for human intervention and enhancing both scalability and accuracy \cite{holdsworthWhatDeepLearning2024}. Figure~\ref{fig:ai_overview} illustrates how Deep Learning fits within the broader context of Artificial Intelligence and Machine Learning.
+Unlike traditional ML methods, which often rely on manual feature engineering and are best suited for structured, moderate-sized datasets, DL models excel at processing vast amounts of unstructured data, including images, audio, and text. These models are capable of autonomously learning hierarchical representations directly from raw inputs, significantly reducing the need for human intervention and enhancing both scalability and accuracy \cite{holdsworthWhatDeepLearning2024}. Figure~\ref{fig:ai_overview} illustrates how DL fits within the broader context of AI and ML.
 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.5\linewidth]{reports//assets/ai.png}
-    \caption[AI overview]{Overview of AI subsets \cite{nasaWhatArtificialIntelligence}.}
+    \caption[AI subsets overview]{Overview of AI subsets \cite{nasaWhatArtificialIntelligence}.}
     \label{fig:ai_overview}
 \end{figure}
 
@@ -651,7 +654,7 @@ These advancements have been largely driven by the success of Convolutional Neur
 
 \section{Convolutional Neural Networks}
 
-A Convolutional Neural Network (CNN) is a specialized type of deep learning model based on layers, designed to automatically learn and extract features from data, particularly images, by applying mathematical operations called convolutions. 
+A Convolutional Neural Network (CNN) is a specialized type of DL model based on layers, designed to automatically learn and extract features from data, particularly images, by applying mathematical operations called convolutions. 
 
 CNNs were first introduced by LeCun et al. \cite{lecun_gradient-based_1998} in their seminal work on LeNet (Figure \ref{fig:lenet}), an architecture developed for digit recognition. However, CNNs gained widespread popularity only after Krizhevsky et al. achieved a breakthrough in the 2012 ImageNet Large Scale Visual Recognition Challenge with their architecture, AlexNet \cite{NIPS2012_c399862d}.
 
@@ -661,7 +664,7 @@ The key innovation of CNNs lies in their ability to learn hierarchical features 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.8\linewidth]{reports//assets/lenet.jpg}
-    \caption[LeNet CNN]{LeNet, considered the first CNN architecture for digit recognition}
+    \caption[LeNet CNN]{LeNet, considered the first CNN architecture for digit recognition \cite{lecun_gradient-based_1998}.}
     \label{fig:lenet}
 \end{figure}
 
@@ -670,7 +673,7 @@ The key innovation of CNNs lies in their ability to learn hierarchical features 
 
 \textbf{Convolutional Layers}
 
-A convolutional layer is the primary building block of a CNN. It applies a set of filters (or kernels) to the input data (image) by sliding each filter across the width and height while computing the dot product between the filter and the local region covered. This operation is known as convolution. The purpose of this operation is to generate a feature map, which highlights patterns or specific features of the input, like edges or textures \cite{noauthor_what_2021}. In a large CNN, this feature map is then propagated to the next layer to repeat the process and extract more complex features. Figure \ref{fig:convolution_feature_map} illustrates the convolution operation and a feature map example.
+A convolutional layer is the primary building block of a CNN. It applies a set of filters (or kernels) to the input data (image) by sliding each filter across the width and height while computing the dot product between the filter and the local region covered. This operation is known as convolution. The purpose of this operation is to generate a feature map, which highlights patterns or specific features of the input, like edges or textures \cite{noauthor_what_2021}. In a large CNN, this feature map is then propagated to the next layer to repeat the process and extract more complex features. Figure \ref{fig:convolution_feature_map} illustrates the convolution operation and a feature map example of a breast image.
 
 \begin{figure}[h!]
 	\centering
@@ -723,6 +726,8 @@ Fully connected layers, also known as dense layers, are typically located near t
     \label{fig:fc_layers}
 \end{figure}
 
+\textbf{Training}
+
 With all this building blocks, CNN are constructed. Once a network is defined, it goes through the process of training, which involves the following steps \cite{bergmann_what_2024}:
 
 \begin{enumerate}
@@ -753,9 +758,9 @@ He et al. (2015) \cite{he_deep_2015} presented Residual Networks, or ResNets, as
 
 \textbf{MobileNet}
 
-As introduced by Howard et al. (2017), MobileNet was specifically engineered for mobile and embedded systems. By utilizing depthwise separable convolutions\footnote{A different kind of convolution that splits the process in two steps: filtering each input channel and then combining them with a 1×1 convolution.}, it effectively decreases computational requirements and model size, rendering it highly suitable for real-time and resource-limited applications.
+As introduced by Howard et al. (2017) \cite{howardMobileNetsEfficientConvolutional2017}, MobileNet was specifically engineered for mobile and embedded systems. By utilizing depthwise separable convolutions\footnote{A different kind of convolution that splits the process in two steps: filtering each input channel and then combining them with a 1×1 convolution.}, it effectively decreases computational requirements and model size, rendering it highly suitable for real-time and resource-limited applications.
 
-As previously stated, our study utilizes ResNet-101 as the baseline model. This architecture, comprised of 101 layers interspersed with residual connections, proves highly adept at managing intricate tasks. Figure \ref{fig:resnet_101} illustrate an overview of its structure.
+As previously stated, this study uses ResNet-101 as the baseline model. This architecture, comprised of 101 layers with residual connections, proves highly performance at managing complex tasks. Figure \ref{fig:resnet_101} illustrate an overview of its structure.
 
 \begin{figure}[h!]
     \centering
@@ -765,7 +770,7 @@ As previously stated, our study utilizes ResNet-101 as the baseline model. This 
 \end{figure}
 
 
-\subsection{Limitations}
+\subsection{CNNs Limitations}
 
 CNNs offer numerous advantages and a wide range of applications; however, they also have certain limitations that deserve consideration:
 
@@ -780,16 +785,160 @@ CNNs offer numerous advantages and a wide range of applications; however, they a
 Recent advances in Transformer-based models offer promising solutions to some of these limitations by enabling better modeling of global context and improving generalization, which will be discussed in the following section.
 
 \section{Transformer-Based models}
-\subsection{Brief History}
-\subsection{Principles of Self-Attention}
+
+Transformer models are built upon the Transformer architecture, which was initially developed for natural language processing (NLP) tasks. Since their introduction to computer vision, these models have gained significant popularity as an alternative to CNNs due to their effectiveness in capturing global context and modeling long-range dependencies within images \cite{pereira_review_2024}. 
+
+In this section, we review what transformer-based models are and describe the architectural designs of those analyzed in this work for the task of breast cancer molecular subtype classification.
+
+\subsection{The Transformer architecture}
+
+The Transformer architecture is a DL model introduced by Vaswani et al. (2017) in their seminal paper “Attention is All You Need” \cite{vaswani_attention_2017}. Originally developed as an alternative to recurrent neural networks (RNNs)\footnote{A special class of artificial neural network designed to process sequential or time-series data, such as text, speech, or sensor readings.} for sequence-to-sequence tasks in NLP, the Transformer has since become widely adopted in computer vision as well.
+
+At its core, the Transformer consists of an encoder-decoder structure built from repeated layers containing two key components: multi-head self-attention and position-wise feed-forward networks (see Figure~\ref{fig:transformer}). This design enables the model to capture both local and global dependencies by relating every element in the input sequence to every other element, regardless of their positions.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\linewidth]{reports//assets/transformer.png}
+    \caption[Transformer Architecture]{The Transformer Architecture \cite{vaswani_attention_2017}.}
+    \label{fig:transformer}
+\end{figure}
+
+\textbf{Self-Attention}
+
+Self-attention is an attention mechanism\footnote{A technique in machine learning that enables models to focus on the most relevant parts of the input data when making predictions or generating outputs.} that allows a network to relate different positions within a single input sequence, thereby computing a context-aware representation for each element. In simpler terms, it enables the model to efficiently prioritize and integrate important information from across the entire input. The concept of attention was first introduced by Bahdanau et al. (2014) \cite{bahdanau_neural_2014}, but it was the Transformer architecture that first relied entirely on self-attention to compute representations \cite{vaswani_attention_2017}. In a concise overview, this process functions as follows:
+
+\begin{itemize}
+    \item \textbf{Projection}: Each input element is projected into three distinct vectors:
+        \begin{itemize}
+        \item \textbf{Query (Q)}: Represents the current element (e.g., a word or image patch) for which we want to find relevant information from the sequence.
+        \item \textbf{Key (K)}: Represents each element in the sequence and is used to match against queries to measure their relevance.
+        \item \textbf{Value (V)}: Contains the actual information of each element, which will be combined according to the attention scores.
+        \end{itemize}
+    \item \textbf{Score Calculation}: For each element, an attention score is computed by taking the dot product between its query and all keys in the sequence.
+    \item \textbf{Scaling}: Each score is divided by the square root of the key dimension to stabilize training and prevent large gradients.
+    \item \textbf{Softmax Normalization}: The softmax\footnote{The softmax function transforms the scores into probabilities that sum to one.} function is applied to the scaled scores to obtain attention weights.
+    \item \textbf{Weighted Sum}: A new, context-aware representation for each input element is obtained by computing the weighted sum of all value vectors using the attention weights.
+\end{itemize}
+
+Figure \ref{fig:scaled_dot_product_attn} illustrates the process of scaled dot-product attention in detail. Mathematically, the process can be summarized as follows:
+
+$$Attention(Q,K,V) = softmax\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.3\linewidth]{reports//assets/scaled_dot_product.png}
+    \caption[Scaled dot-product attention]{Scaled dot-product attention mechanism \cite{vaswani_attention_2017}.}
+    \label{fig:scaled_dot_product_attn}
+\end{figure}
+
+
 \subsection{Vision Transformer}
+
+A Vision Transformer (ViT) is a DL  architecture introduce by Dosovitskiy et al. (2020) \cite{dosovitskiy_image_2020} designed for computer vision tasks, inspired by the Transformer architecture originally developed for NLP. 
+
+\textbf{ViT processing pipeline}
+
+A ViT processes an image by first dividing it into fixed-size patches, for example, a 224×224 image split into 16×16 patches results in 196 patches. Each patch is then flattened and projected into an embedding space by the patch embedding layer. Because the ViT architecture lacks inherent spatial awareness, positional encodings are added to each patch embedding to preserve spatial information within the image. This design allows the input to be treated analogously to a sequence of tokens in NLP Transformers. As the sequence passes through multiple layers of multi-head self-attention, the model learns to capture both local and global relationships among the patches, enabling robust image understanding. This process and the ViT architecture is depicted in the Figure \ref{fig:vit_arch}.
+
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1.0\linewidth]{reports//assets/vit_breast.jpg}
+    \caption[Vision Transformer Architecture]{ViT architecture, in this example, for breast cancer classification \cite{abimouloud_vision_2024}.}
+    \label{fig:vit_arch}
+\end{figure}
+
+ViTs have rapidly expanded their reach to many computer vision tasks, including image classification, object detection, and image segmentation. In medical imaging, several studies have evaluated their performance on tasks such as breast cancer classification, consistently reporting strong results \cite{marquez_vara_vision_2024, mauricio_comparing_2023, ayana_vision-transformer-based_2023}.
+
+
 \subsection{Shifted-Window Transformer}
+
+Shifted-Window Transformers (Swin), introduced by Liu et al. (2021) \cite{liu_swin_2021}, are a specialized architecture derived from Vision Transformers (ViT). They are designed to address some of the limitations of ViT, particularly regarding computational efficiency and scalability when processing high-resolution images.
+
+To achieve this, Swin employs a shifted window mechanism. Unlike ViT, which typically applies self-attention globally, Swin divides the image into a set of non-overlapping windows (Figure \ref{fig:swin_vit}), with each window containing a subset of image patches. Self-attention is then applied locally within each window, significantly reducing computational complexity. The windows are shifted between layers to enable cross-window connections and enhance information flow across the entire image.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.6\linewidth]{reports//assets/Swin.png}
+    \caption[Comparison of Swin and ViT mechanisms]{Comparison of Swin and ViT attention mechanisms. \textbf{Left:} Swin Transformer with shifted window self-attention. \textbf{Right:} Vision Transformer (ViT) with global self-attention across all patches \cite{liu_swin_2021}.}
+    \label{fig:swin_vit}
+\end{figure}
+
+As a result of this mechanism, Swin exhibits a computational complexity of $O(n)$, whereas ViT has a complexity of $O(N^2)$. 
+
+
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1.0\linewidth]{reports//assets/SwinArch.png}
+    \caption[Swin Transformer Arch]{Swin Transformer Architecture \cite{liu_swin_2021}.}
+    \label{fig:swin_arch}
+\end{figure}
+
 \subsection{Multi-Axis Vision Transformer}
+
+Multi-Axis Vision Transformer (MaxViT) is a hybrid vision transformer architecture introduced by Tu et al. (2022) \cite{tu_maxvit_2022}. It is designed to capture both local and global spatial relationships in images, overcoming scalability and capacity limitations of previous transformer-based models. MaxViT achieves this by combining blocked local attention (as in Swin, but without shifting) and dilated global (grid) attention within each block, together with convolutional layers. This multi-axis attention mechanism allows MaxViT to efficiently model both short- and long-range dependencies while maintaining the same linear computational complexity as Swin. Figure \ref{fig:max_vit_arch} illustrates this structure.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1.0\linewidth]{reports//assets/maxvit_arch.png}
+    \caption[Multi-Axis Vision Transformer Arch]{MaxVit Architecture \cite{tu_maxvit_2022}.}
+    \label{fig:max_vit_arch}
+\end{figure}
+
+
+\textbf{Multi-Axis Attention}
+
+Multi-axis attention is the key component of MaxViT. It works by splitting the attention mechanism into two parts: a block of local attention, which focuses on local regions (similar to Swin’s), and a grid attention block, which enables global information flow across the entire image through a dilated, grid-like pattern. This design allows MaxViT to efficiently capture both local and global dependencies within each block (see Figure \ref{fig:multi_axis_attention}).
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.6\linewidth]{reports//assets/multi_axis_attention.png}
+    \caption[Multi-Axis Attention Blocks]{Multi-Axis attention blocks \cite{noauthor_maxvit-unet_2024}.}
+    \label{fig:multi_axis_attention}
+\end{figure}
+
 
 \section{Training and Evaluation Techniques}
 \subsection{Transfer Learning}
+
+Transfer learning is a ML technique in which a model developed and trained on one task or dataset is reused or fine-tuned to improve performance on a different, but related, task. It is especially valuable when data is limited or the target task has few labeled examples available \cite{murel_what_2024}. In other words, instead of training a new model from scratch, transfer learning leverages knowledge previously obtained—such as learned features and weights, often from large datasets—to accelerate and enhance learning on a new problem.
+
+This approach is very popular and widely used to avoid training new machine learning or deep learning models from scratch. In medical imaging, for example, where annotated data is often scarce or expensive to obtain, transfer learning has enabled the development and training of models that reduce training time, improve performance, and promote feature reuse \cite{matsoukas_what_2022}. This process is depicted in Figure \ref{fig:transfer_learning}.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.75\linewidth]{reports//assets/transfer-learning.png}
+    \caption[Transfer learning process]{Transfer learning process where}
+    \label{fig:transfer_learning}
+\end{figure}
+
+
 \subsection{Fine-Tuning}
+
+Fine-tuning is a specific technique within transfer learning that involves taking a pre-trained model and continuing its training on a smaller or more specialized dataset to adapt its capabilities to a particular case or domain \cite{noauthor_what_2024}. During fine-tuning, some or all of the model’s parameters are unfrozen and updated, allowing the model to learn features relevant to the new task while retaining the general knowledge acquired during pre-training. However, training large models on small datasets can lead to overfitting, so it is common practice to use a lower learning rate during fine-tuning to make gradual adjustments and preserve previously learned representations.
+
 \subsection{K-Fold Cross-Validation}
+
+When training ML or DL models, it is standard practice to split the dataset into separate subsets, typically train, validation, or test sets. The training set is used to fit the model, while the test set serves to evaluate its performance on unseen data. This approach helps estimate how well the model will generalize to new data and prevents overfitting by ensuring that evaluation is performed on data not used during training.
+
+However, when data is limited or there are concerns about the reliability of a single train/test split, a more robust evaluation method is required. In these cases, K-Fold Cross-Validation is commonly used.
+
+K-Fold Cross-Validation works by dividing the dataset into $K$ equally sized folds. The model is trained and validated $K$ times, each time using a different fold as the validation set and the remaining folds for training. This ensures that every data point, image, or sample is used for both training and validation, providing a less biased and more reliable estimate of model performance compared to a simple train/test split. By averaging the results across all folds, K-Fold Cross-Validation reduces the variance associated with a single split and offers a comprehensive assessment, especially valuable when working with small or imbalanced datasets. Figure \ref{fig:k_fold} illustrates this process.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.75\linewidth]{reports//assets/k-fold.png}
+    \caption[K-Fold Cross Validation]{K-Fold cross validation process, in this example, $K$ = 5 \cite{noauthor_31_nodate}.}
+    \label{fig:k_fold}
+\end{figure}
+
+\subsection{AI Explainability}
+
+\textbf{Grad-CAM}
+
+\textbf{Attention-Rollout}
+
 \chapter{Materials and Methods}
 
 This section documents the materials and processes carried out for this study. First, the selected dataset for model training and analysis is described, followed by the processing and preparation of the images, and finally the evaluation metrics used to assess model performance.
@@ -915,22 +1064,24 @@ The class imbalance is also reflected in the total number of images available pe
 \end{figure}
 
 \newpage
-\section{The TOMPEI-CMMD Dataset review}
+\section{The TOMPEI-CMMD review}
 
-The TOMPEI-CMMD dataset represents an enhanced version of the original CMMD, developed by Kashiwada et al. (2025) \cite{kashiwada_tompei-cmmd_2025}. This enhancement aimed to provide comprehensive radiological insights and perform a systematic re-evaluation of the existing mammographic images. A board-certified radiologist with 20 years of experience in breast imaging assessed all images, documenting detailed radiological findings including masses, calcifications, focal asymmetric densities, architectural distortions, and their anatomical locations. The dataset further provides pixel-level segmentation masks for all identified findings in MLO views, created following the radiologist's expert assessment. 
+The TOMPEI-CMMD represents an enhanced version of the original CMMD, developed by Kashiwada et al. (2025) \cite{kashiwada_tompei-cmmd_2025}. This enhancement aimed to provide comprehensive radiological insights and perform a systematic re-evaluation of the existing mammographic images. A board-certified radiologist with 20 years of experience in breast imaging assessed all images, documenting detailed radiological findings including masses, calcifications, focal asymmetric densities, architectural distortions, and their anatomical locations. The dataset further provides pixel-level segmentation masks for all identified findings in MLO views, created following the radiologist's expert assessment. 
 
 One of the most important results of the evaluation process was the exclusion of 140 breast images that did not meet the quality and diagnostic criteria. 
 
 \section{Image Preprocessing}
+
+
 \section{Data splitting and stratification strategy}
+\section{Development tools}
+\section{Evaluation Metrics}
 \section{Experiments}
 
-\section{Evaluation Metrics}
-
 \chapter{Results and Discussion}
-\section{Results}
-
 \chapter{Conclusions and Future Work}
+
+\chapter{Appendix A}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \backmatter
