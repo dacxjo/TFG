@@ -102,7 +102,7 @@
 			\end{center}
 		\end{figure}
 				
-		\def\worktitle{Development of an AI-Based Tool for Molecular Subtype Classification of Invasive Ductal Breast Carcinoma Using Mammography}
+		\def\worktitle{Evaluation of Transformer-Based Models for Molecular Subtype Classification of Invasive Ductal Breast Carcinoma Using Mammography}
 				
 		\textbf{\LARGE Treball final de grau} \\
 		\vspace*{.5cm}
@@ -736,7 +736,7 @@ Pooling layers reduce the spatial dimensions of feature maps, decreasing computa
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=1.0\linewidth]{reports//assets/pooling.png}
+    \includegraphics[width=1.0\linewidth]{reports//assets/pooling.jpg}
     \caption[Popular pooling operations]{Max pooling and Average pooling representation \cite{SkinLesionClassification}.}
     \label{fig:pooling_operations}
 \end{figure}
@@ -1053,7 +1053,7 @@ For each patient, the dataset provides a CSV\footnote{A plain text file that sto
 
 It is important to note that, the laterality column indicates the side where the tumor was found; therefore, the opposite side is considered benign \cite{cai_online_2023}.
 
-The age distribution of patients follows an approximately normal distribution with slight asymmetries. The most frequent age range is between 45 and 55 years, which is consistent with breast cancer epidemiology, where the majority of cases are diagnosed during this age interval [citation needed]. The inclusion of younger patients in the dataset enhances population diversity and enables analysis of model performance across underrepresented demographic subgroups. Figure \ref{fig:age_dist_all} illustrates this distribution.
+The age distribution of patients follows an approximately normal distribution with slight asymmetries. The most frequent age range is between 45 and 55 years, which is consistent with breast cancer epidemiology, where the majority of cases are diagnosed during this age interval. The inclusion of younger patients in the dataset enhances population diversity and enables analysis of model performance across underrepresented demographic subgroups. Figure \ref{fig:age_dist_all} illustrates this distribution.
 
 
 \begin{figure}[h!]
@@ -1379,7 +1379,7 @@ A set of common training hyperparameters was selected to ensure they were suitab
 
 
 \begin{table}[h!]
-    \caption[Libraries]{Common training hyperparameters.}
+    \caption[Common training hyperparameters]{Common training hyperparameters.}
     \centering
     \begin{tabular}{l l}
         \toprule
@@ -1573,7 +1573,7 @@ To ensure these findings are not due to random chance or experimental variabilit
 \end{table}
 
 
-hese results show that the p-values for Balanced Accuracy and AUC are below the significance threshold of 0.05, indicating statistically significant differences among the models or modalities for these metrics. In other words, at least one model or modality performs differently from the others in terms of Balanced Accuracy and AUC. For the remaining metrics, the p-values are above 0.05, so there is not enough evidence to conclude that significant differences exist among the groups. This suggests that the models perform similarly with respect to these metrics, or that any observed differences are likely due to random variation.
+These results show that the p-values for Balanced Accuracy and AUC are below the significance threshold of 0.05, indicating statistically significant differences among the models or modalities for these metrics. In other words, at least one model or modality performs differently from the others in terms of Balanced Accuracy and AUC. For the remaining metrics, the p-values are above 0.05, so there is not enough evidence to conclude that significant differences exist among the groups. This suggests that the models perform similarly with respect to these metrics, or that any observed differences are likely due to random variation.
 
 Based on these findings, a Wilcoxon signed-rank test was conducted to identify which models perform significantly better than others in terms of Balanced Accuracy and AUC.
 
